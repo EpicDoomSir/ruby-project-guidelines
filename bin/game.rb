@@ -40,16 +40,35 @@ class Ship # maybe to be moved to it's own file
                 @position[0] += 1
             end
         end
+    end # move
+end # ship
+
+class Asteroid
+    def initialize
+        @position = [16, 0]
     end
-end
+
+    def draw
+        Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE * 2, color: 'red')
+    end
+
+    def move
+        @position[1] += 1
+    end
+
+end # asteroid
 
 🚀 = Ship.new
+🌑 = Asteroid.new
 
 update do
     clear
 
     🚀.move
     🚀.draw
+
+    🌑.move
+    🌑.draw
 end
 
 on :key_held do |event|

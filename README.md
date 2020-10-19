@@ -4,16 +4,16 @@ A game based on the classic game Asteroids.
 
 ## User Stories
 
-### Option One - Data Analytics Project
-
 1. As a user you can create a username
 2. As a user you can create a password
 3. As a user you can create an email
 4. As a user you can play with a friend
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface.
+5. As a user you can read the game's instructions
+6. As a user you can see your highscore/leaderboard
+7. As a user you can update/change your password
+8. As a user you can delete your user info
 
-  **Resource:** [Easy Access APIs](https://github.com/learn-co-curriculum/easy-access-apis)
+![our game model](https://i.imgur.com/0E58aZv.png)
 
 ### Option Two - Command Line CRUD App
 
