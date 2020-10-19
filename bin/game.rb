@@ -11,10 +11,11 @@ GRID_WIDTH = Window.width / GRID_SIZE
 GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Ship # maybe to be moved to it's own file
-    attr_accessor :position, :direction
+    attr_accessor :position, :direction, :healthpoints
     def initialize
         @position = [16, 20]
         @direction = nil
+        @healthpoints = 5
     end
 
     def draw
@@ -27,6 +28,7 @@ class Ship # maybe to be moved to it's own file
         #     color: 'red',
         #     z: 100
         #   )
+        Text.new("HP: #{@healthpoints}", color: 'red', x: 10, y: 10, size: 25)
     end
 
     def move
@@ -41,12 +43,19 @@ class Ship # maybe to be moved to it's own file
             end
         end
     end # move
+
+    def asteroid_hit_ship(x, y)
+        @position[0] == x && @position[1] == y
+    end
+
+    def record_hit
+        @healthpoints -= 1
+    end
+    
 end # ship
 
 class Asteroid
-    attr_accessor :score
     def initialize
-        @score = 0
         @rock_x = rand(GRID_WIDTH)
         @rock_y = 0
     end
@@ -57,6 +66,18 @@ class Asteroid
 
     def move
         @rock_y += 1
+        if @rock_y >= GRID_HEIGHT
+            @rock_y = 0
+            @rock_x = rand(GRID_WIDTH)
+        end
+    end
+
+    def x
+        @rock_x
+    end
+
+    def y
+        @rock_y
     end
 
 end # asteroid
@@ -72,6 +93,10 @@ update do
 
     🌑.move
     🌑.draw
+
+    if 🚀.asteroid_hit_ship(🌑.x, 🌑.y)
+        🚀.record_hit
+    end
 end
 
 on :key_held do |event|
