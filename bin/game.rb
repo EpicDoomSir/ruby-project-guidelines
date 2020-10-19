@@ -7,6 +7,8 @@ set fps_cap: 15
 # height = 480 / 20 = 24
 
 GRID_SIZE = 20
+GRID_WIDTH = Window.width / GRID_SIZE
+GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Ship # maybe to be moved to it's own file
     attr_accessor :position, :direction
@@ -30,9 +32,13 @@ class Ship # maybe to be moved to it's own file
     def move
         case @direction
         when 'left'
-            @position[0] -= 1
+            if !(@position[0] <= 0)
+                @position[0] -= 1
+            end
         when 'right'
-            @position[0] += 1
+            if !(@position[0] >= GRID_WIDTH - 1)
+                @position[0] += 1
+            end
         end
     end
 end
