@@ -18,7 +18,7 @@ class Ship # maybe to be moved to it's own file
         @healthpoints = 5
     end
 
-    def draw
+    def draw # draws the ship in correct location and displays hp
         Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: 'green')
         # I want to add more to the ship but can be done later
         # Triangle.new(
@@ -31,7 +31,7 @@ class Ship # maybe to be moved to it's own file
         Text.new("HP: #{@healthpoints}", color: 'red', x: 10, y: 10, size: 25)
     end
 
-    def move
+    def move # logic for moving the ship 
         case @direction
         when 'left'
             if !(@position[0] <= 0)
@@ -44,14 +44,15 @@ class Ship # maybe to be moved to it's own file
         end
     end # move
 
-    def asteroid_hit_ship(x, y)
+    def asteroid_hit_ship(x, y) # returns true if the asteroid and ship occupy the same space
         @position[0] == x && @position[1] == y
     end
 
-    def record_hit
+    def record_hit # loosing life
         @healthpoints -= 1
     end
 
+    # access to position of the ship at a given time
     def x
         @position[0]
     end
@@ -82,6 +83,7 @@ class Asteroid
         end
     end
 
+    # access to position of the asteroid at a given time
     def x
         @rock_x
     end
@@ -95,7 +97,7 @@ end # asteroid
 🚀 = Ship.new
 🌑 = Asteroid.new
 
-update do
+update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
 
     🚀.move
@@ -104,12 +106,13 @@ update do
     🌑.move
     🌑.draw
 
-    if 🚀.asteroid_hit_ship(🌑.x, 🌑.y) #🌑.rock.contains?(🚀.x, 🚀.y)
+    if 🚀.asteroid_hit_ship(🌑.x, 🌑.y) #🌑.rock.contains?(🚀.x, 🚀.y) need to look into making this work
         puts 🚀.x
         🚀.record_hit
     end
 end
 
+# events to catch user input, going to need to abstract these for the 2 player functionality
 on :key_held do |event|
     if ['left', 'right'].include?(event.key)
         🚀.direction = event.key
