@@ -1,6 +1,7 @@
 require 'ruby2d'
 
 set background: 'navy'
+set fps_cap: 15
 
 # width = 640 / 20 = 32
 # height = 480 / 20 = 24
@@ -23,9 +24,17 @@ class Ship # maybe to be moved to it's own file
         #     z: 100
         #   )
     end
+
+    def move
+        
+    end
 end
 
 🚀 = Ship.new
-🚀.draw
+
+update do
+    clear
+    🚀.draw
+end
 
 show
