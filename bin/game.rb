@@ -9,8 +9,10 @@ set fps_cap: 15
 GRID_SIZE = 20
 
 class Ship # maybe to be moved to it's own file
+    attr_accessor :position, :direction
     def initialize
         @position = [16, 20]
+        @direction = nil
     end
 
     def draw
@@ -26,7 +28,12 @@ class Ship # maybe to be moved to it's own file
     end
 
     def move
-        
+        case @direction
+        when 'left'
+            @position[0] -= 1
+        when 'right'
+            @position[0] += 1
+        end
     end
 end
 
@@ -34,7 +41,19 @@ end
 
 update do
     clear
+
+    🚀.move
     🚀.draw
 end
+
+on :key_held do |event|
+    if ['left', 'right'].include?(event.key)
+        🚀.direction = event.key
+    end
+end
+
+on :key_up do
+    🚀.direction = nil
+  end
 
 show
