@@ -44,16 +44,19 @@ class Ship # maybe to be moved to it's own file
 end # ship
 
 class Asteroid
+    attr_accessor :score
     def initialize
-        @position = [16, 0]
+        @score = 0
+        @rock_x = rand(GRID_WIDTH)
+        @rock_y = 0
     end
 
     def draw
-        Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE * 2, color: 'red')
+        Square.new(x: @rock_x * GRID_SIZE, y: @rock_y * GRID_SIZE, size: GRID_SIZE * 2, color: 'red')
     end
 
     def move
-        @position[1] += 1
+        @rock_y += 1
     end
 
 end # asteroid
