@@ -51,17 +51,27 @@ class Ship # maybe to be moved to it's own file
     def record_hit
         @healthpoints -= 1
     end
+
+    def x
+        @position[0]
+    end
+
+    def y
+        @position[1]
+    end
     
 end # ship
 
 class Asteroid
+    attr_accessor :rock
     def initialize
         @rock_x = rand(GRID_WIDTH)
         @rock_y = 0
+        @rock = nil
     end
 
     def draw
-        Square.new(x: @rock_x * GRID_SIZE, y: @rock_y * GRID_SIZE, size: GRID_SIZE * 2, color: 'red')
+        @rock = Square.new(x: @rock_x * GRID_SIZE, y: @rock_y * GRID_SIZE, size: GRID_SIZE * 2, color: 'red')
     end
 
     def move
@@ -94,7 +104,8 @@ update do
     🌑.move
     🌑.draw
 
-    if 🚀.asteroid_hit_ship(🌑.x, 🌑.y)
+    if 🚀.asteroid_hit_ship(🌑.x, 🌑.y) #🌑.rock.contains?(🚀.x, 🚀.y)
+        puts 🚀.x
         🚀.record_hit
     end
 end

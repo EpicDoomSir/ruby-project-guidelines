@@ -3,12 +3,23 @@ Ship.destroy_all
 Game.destroy_all
 Asteroid.destroy_all
 
-User.create(username: '', email_address: '', password: '', high_score: '')
-User.create(username: '', email_address: '', password: '', high_score: '')
+eitan = User.create
+shevaughn = User.create
 
-Ship.create(user_id: '', game_id: '', hp: '', scores: '')
-Ship.create(user_id: '', game_id: '', hp: '', scores: '')
+game1 = Game.create
+game2 = Game.create
+game3 = Game.create
 
-Game.create(difficulty: '')
+User.create(username: 'Eitan', email_address: 'eitan@test.com', password: '123', high_score: 9000 )
+User.create(username: 'techtwin', email_address: 'twin@test.com', password: '123', high_score: 8400)
 
-Asteroid.create(game_id: '', hp: '', size: '')
+Ship.create(user_id: eitan.id, game_id: game2.id, hp: 100, scores: 4000)
+Ship.create(user_id: shevaughn.id, game_id: game1.id, hp: 110, scores: 2349)
+
+Game.create(difficulty: 'Easy')
+Game.create(difficulty: 'Medium')
+Game.create(difficulty: 'Hard')
+
+Asteroid.create(game_id: game1.id, hp: 100, size: 40)
+Asteroid.create(game_id: game1.id, hp: 30, size: 15)
+
