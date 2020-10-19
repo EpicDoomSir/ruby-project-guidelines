@@ -10,6 +10,8 @@ game1 = Game.create
 game2 = Game.create
 game3 = Game.create
 
+# used .create method to persist data in our db passing in the key/values
+
 User.create(username: 'Eitan', email_address: 'eitan@test.com', password: '123', high_score: 9000 )
 User.create(username: 'techtwin', email_address: 'twin@test.com', password: '123', high_score: 8400)
 
