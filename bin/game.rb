@@ -47,7 +47,7 @@ class Ship # maybe to be moved to it's own file
     end # move
 
     def asteroid_hit_ship(asteroid) # returns true if the asteroid and ship occupy the same space
-        asteroid.rock.contains?(@position[0], @position[1])
+        asteroid.rock.contains?(@position[0] * GRID_SIZE, @position[1] * GRID_SIZE)
     end
     
     def record_hit # loosing life
@@ -67,9 +67,9 @@ end # ship
 
 class Asteroid
     attr_accessor :rock
-    def initialize
-        @rock_x = rand(GRID_WIDTH)
-        @rock_y = 0
+    def initialize(rock_x=rand(GRID_WIDTH), rock_y=0)
+        @rock_x = rock_x
+        @rock_y = rock_y
         @rock = nil
     end
 
@@ -97,7 +97,7 @@ class Asteroid
 end # asteroid
 
 🚀 = Ship.new
-🌑 = Asteroid.new
+🌑 = Asteroid.new(16, 10)
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
@@ -108,8 +108,8 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     🌑.move
     🌑.draw
 
-    binding.pry
-
+    
+    # binding.pry
     if 🚀.asteroid_hit_ship(🌑) #🌑.rock.contains?(🚀.x, 🚀.y) need to look into making this work
         puts 🚀.x
         🚀.record_hit
