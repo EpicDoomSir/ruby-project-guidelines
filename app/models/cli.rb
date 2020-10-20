@@ -13,7 +13,7 @@ class CLI
         puts @pastel.magenta.bold(@font.write("ASTEROIDS".center(30), letter_spacing: 4)) # displays game title
         sleep(1)                          # input a delay before displaying the menu/selection screen below
 
-        selection = @prompt.select('Please select one of the options below:'.center(180))do |menu|
+        selection = @prompt.select("Please select one of the options below:\n".center(185)) do |menu|
             menu.choice 'Create Account'.center(180), 1
             menu.choice 'Sign In'.center(180), 2
             menu.choice 'Exit'.center(180), 3
@@ -66,7 +66,13 @@ class CLI
     end
 
     def menu
-
+        puts "Main Menu\n\n".center(180) # add new line char
+        selection = @prompt.select("Select an option:\n".center(180)) do |menu|
+            menu.choice 'Game Start'.center(175), 1
+            menu.choice 'Difficulty'.center(175), 2
+            menu.choice 'Leaderboard'.center(175), 3
+            menu.choice 'Exit'.center(175), 4
+        end
     end
 
     def close
