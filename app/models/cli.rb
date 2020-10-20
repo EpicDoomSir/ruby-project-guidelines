@@ -72,10 +72,11 @@ class CLI
             menu.choice 'Difficulty'.center(175), 2
             menu.choice 'Leaderboard'.center(175), 3
             menu.choice 'Exit'.center(175), 4
-        end
+        end     
     end
 
     def close
+        system("clear")
         puts "Thank you for playing, see you again!"
         puts "by Shevaughn and Eitan"
         exit
