@@ -2,7 +2,7 @@
 
 A game based on the classic game Asteroids.
 
-![game menu]https://i.imgur.com/rvQgs9F.png
+![game menu](https://i.imgur.com/rvQgs9F.png)
 
 ## User Stories
 
