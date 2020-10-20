@@ -30,10 +30,13 @@ class CLI
     def new_acc
         u_input = @prompt.ask('Please enter a username:', required: true)
         username = User.find_by(username: u_input)
+        system("clear")
         if username == nil
             pass = @prompt.mask('Please enter a password:', required: true)
-            puts "Your account has been created. Welcome to the game #{u_input}"
+            system("clear")
+            puts "Your account has been created. Welcome to ASTEROIDS, #{u_input}"
             @user = User.create(username: u_input, password: pass)
+            system("clear")
         else
             puts "That username is already taken, please try again."
             self.welcome
@@ -63,7 +66,7 @@ class CLI
     end
 
     def menu
-        
+
     end
 
     def close
