@@ -2,6 +2,8 @@
 
 A game based on the classic game Asteroids.
 
+![game menu]https://i.imgur.com/rvQgs9F.png
+
 ## User Stories
 
 1. As a user you can create a username
