@@ -46,9 +46,9 @@ class Ship # maybe to be moved to it's own file
         end
     end # move
 
-    def asteroid_hit_ship(asteroid) # returns true if the asteroid and ship occupy the same space
-        asteroid.rock.contains?(@position[0] * GRID_SIZE, @position[1] * GRID_SIZE)
-    end
+    # def asteroid_hit_ship(asteroid) # returns true if the asteroid and ship occupy the same space
+    #     asteroid.rock.contains?(@position[0] * GRID_SIZE, @position[1] * GRID_SIZE)
+    # end
     
     def record_hit # loosing life
         @healthpoints -= 1
@@ -56,62 +56,78 @@ class Ship # maybe to be moved to it's own file
     
     # access to position of the ship at a given time
     def x
-        @position[0]
+        @position[0] * GRID_SIZE
     end
 
     def y
-        @position[1]
+        @position[1] * GRID_SIZE
     end
     
 end # ship
 
 class Asteroid
-    attr_accessor :rock
+    attr_accessor :rock, :collided
+
+    @@all = []
+
     def initialize(rock_x=rand(GRID_WIDTH), rock_y=0)
         @rock_x = rock_x
         @rock_y = rock_y
         @rock = nil
+        @collided = false
+        @@all << self
     end
 
     def draw
-        @rock = Square.new(x: @rock_x * GRID_SIZE, y: @rock_y * GRID_SIZE, size: GRID_SIZE * 2, color: 'red')
+        @rock = Square.new(x: @rock_x * GRID_SIZE, y: @rock_y * GRID_SIZE, size: (GRID_SIZE - 1) * 2, color: 'red')
     end
 
     def move
         @rock_y += 1
-        if @rock_y >= GRID_HEIGHT
+        if @rock_y >= GRID_HEIGHT # logic to respawn asteroid at top of screen
             @rock_y = 0
             @rock_x = rand(GRID_WIDTH)
+            @collided = false
+        end
+    end
+
+    def asteroid_hit_ship(ship) # returns true if the asteroid and ship occupy the same space
+        if !@collided # will only return true the first time the asteroid hits the ship
+            if self.rock.contains?(ship.x, ship.y)
+                @collided = true
+                return true
+            end
         end
     end
     
     # access to position of the asteroid at a given time
     def x
-        @rock_x
+        @rock_x * GRID_SIZE
     end
     
     def y
-        @rock_y
+        @rock_y * GRID_SIZE
     end
     
 end # asteroid
 
 🚀 = Ship.new
-🌑 = Asteroid.new(16, 10)
+🌑 = Asteroid.new
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
 
-    🚀.move
+    unless 🚀.healthpoints == 0 # stops the player and asteroid
+        🚀.move
+        🌑.move
+    end
+    
     🚀.draw
-
-    🌑.move
     🌑.draw
 
     
     # binding.pry
-    if 🚀.asteroid_hit_ship(🌑) #🌑.rock.contains?(🚀.x, 🚀.y) need to look into making this work
-        puts 🚀.x
+    if 🌑.asteroid_hit_ship(🚀) # tracks the collision and lowers hp
         🚀.record_hit
     end
 end
