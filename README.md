@@ -1,6 +1,6 @@
 # Asteroids Game
 
-A game based on the classic game Asteroids.
+Our spin on the classic game Asteroids.
 
 ![game menu](https://i.imgur.com/rvQgs9F.png)
 
