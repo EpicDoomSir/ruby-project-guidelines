@@ -1,4 +1,6 @@
 require 'ruby2d'
+require 'pry'
+
 
 set background: 'navy'
 set fps_cap: 15
@@ -22,7 +24,7 @@ class Ship # maybe to be moved to it's own file
         Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: 'green')
         # I want to add more to the ship but can be done later
         # Triangle.new(
-        #     x1: 50,  y1: 0,
+            #     x1: 50,  y1: 0,
         #     x2: 100, y2: 100,
         #     x3: 0,   y3: 100,
         #     color: 'red',
@@ -34,24 +36,24 @@ class Ship # maybe to be moved to it's own file
     def move # logic for moving the ship 
         case @direction
         when 'left'
-            if !(@position[0] <= 0)
+            if !(@position[0] <= 0) # stops ship from moving through th left wall
                 @position[0] -= 1
             end
         when 'right'
-            if !(@position[0] >= GRID_WIDTH - 1)
+            if !(@position[0] >= GRID_WIDTH - 1) # stops ship from moving through th right wall
                 @position[0] += 1
             end
         end
     end # move
 
-    def asteroid_hit_ship(x, y) # returns true if the asteroid and ship occupy the same space
-        @position[0] == x && @position[1] == y
+    def asteroid_hit_ship(asteroid) # returns true if the asteroid and ship occupy the same space
+        asteroid.rock.contains?(@position[0], @position[1])
     end
-
+    
     def record_hit # loosing life
         @healthpoints -= 1
     end
-
+    
     # access to position of the ship at a given time
     def x
         @position[0]
@@ -82,16 +84,16 @@ class Asteroid
             @rock_x = rand(GRID_WIDTH)
         end
     end
-
+    
     # access to position of the asteroid at a given time
     def x
         @rock_x
     end
-
+    
     def y
         @rock_y
     end
-
+    
 end # asteroid
 
 🚀 = Ship.new
@@ -106,7 +108,9 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     🌑.move
     🌑.draw
 
-    if 🚀.asteroid_hit_ship(🌑.x, 🌑.y) #🌑.rock.contains?(🚀.x, 🚀.y) need to look into making this work
+    binding.pry
+
+    if 🚀.asteroid_hit_ship(🌑) #🌑.rock.contains?(🚀.x, 🚀.y) need to look into making this work
         puts 🚀.x
         🚀.record_hit
     end
