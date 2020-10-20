@@ -70,9 +70,10 @@ class Asteroid
 
     @@all = []
 
-    def initialize(rock_x=rand(GRID_WIDTH), rock_y=0)
+    def initialize(rock_x=rand(GRID_WIDTH), rock_y=rand(4))
         @rock_x = rock_x
         @rock_y = rock_y
+        # @speed = rand(1..3)
         @rock = nil
         @collided = false
         @@all << self
@@ -83,10 +84,11 @@ class Asteroid
     end
 
     def move
-        @rock_y += 1
+        @rock_y += 1 # @speed
         if @rock_y >= GRID_HEIGHT # logic to respawn asteroid at top of screen
             @rock_y = 0
             @rock_x = rand(GRID_WIDTH)
+            # @speed = rand(1..3)
             @collided = false
         end
     end
@@ -112,23 +114,28 @@ class Asteroid
 end # asteroid
 
 🚀 = Ship.new
-🌑 = Asteroid.new
+🌑 = []
+3.times do
+    🌑 << Asteroid.new
+end
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
 
-    unless 🚀.healthpoints == 0 # stops the player and asteroid
+    unless 🚀.healthpoints <= 0 # stops the player and asteroid
         🚀.move
-        🌑.move
+        🌑.each{|x| x.move}
     end
     
     🚀.draw
-    🌑.draw
+    🌑.each{|x| x.draw}
 
     
     # binding.pry
-    if 🌑.asteroid_hit_ship(🚀) # tracks the collision and lowers hp
-        🚀.record_hit
+    🌑.each do |x|
+        if x.asteroid_hit_ship(🚀) # tracks the collision and lowers hp
+            🚀.record_hit
+        end
     end
 end
 
