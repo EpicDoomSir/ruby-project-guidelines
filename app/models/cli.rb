@@ -13,7 +13,7 @@ class CLI
         puts @pastel.magenta.bold(@font.write("ASTEROIDS".center(30), letter_spacing: 4)) # displays game title
         sleep(1)                          # input a delay before displaying the menu/selection screen below
 
-        selection = @prompt.select("Please select one of the options below:\n".center(185)) do |menu|
+        selection = @prompt.select("\n".center(185)) do |menu|
             menu.choice 'Create Account'.center(180), 1
             menu.choice 'Sign In'.center(180), 2
             menu.choice 'Exit'.center(180), 3
@@ -90,7 +90,16 @@ class CLI
 
 
     def profile
+        selection = @prompt.select("") do |menu|
+            menu.choice 'Change Password'.center(175), 1
+            menu.choice 'Delete Account'.center(175), 2
+            menu.choice 'High Score'.center(175), 3
+        end
 
+        if selection == 1
+            pass = @prompt.mask("Please enter a new password:", required: true)
+            @user.password = password
+            @user.save
     end
 
     def close

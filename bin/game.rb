@@ -36,8 +36,8 @@ class Ship # maybe to be moved to it's own file
 
     def draw # draws the ship in correct location and displays hp
         Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: 'green')
-        Text.new("HP: #{@healthpoints}", color: 'yellow', x: 10, y: 10, z:1, size: 25)
-        Text.new("Score: #{@score}", color: 'white', x: 430, y: 10, z:1, size: 25)
+        Text.new("HP: #{@healthpoints}", color: 'green', x: 10, y: 10, z:1, size: 25)
+        Text.new("Score: #{@score}", color: 'green', x: 10, y: 40, z:1, size: 25)
     end
 
     def move # logic for moving the ship 
@@ -120,8 +120,25 @@ class Asteroid
     
 end # asteroid
 
+class Game
+    attr_accessor :players
+
+    def initialize(players=1)
+        @players = players
+    end
+end
+
+game = Game.new(2)
+
 🚀 = []
 🚀 << Ship.new
+
+if game.players == 2
+    🚀 << Ship.new
+    🚀[0].position = [22, 20]
+    🚀[1].position = [11, 20]
+end
+
 🌑 = []
 🌑 << Asteroid.new
 
@@ -131,9 +148,11 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     unless 🚀[0].healthpoints <= 0 # stops the player and asteroid if hp is 0
         🚀.each{|x| x.move}
         🌑.each{|x| x.move}
+
         if 🌑.all?{|x| x.reached_end?} # to raise difficalty, add more at a time: this is easy, medium is 2, hard is 3
             🌑 << Asteroid.new
         end
+
         🚀.each{|x| x.score = (Time.now - x.start_time)}
     else
         Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80) # need to find a way to make it centered and scaled with window size
@@ -158,10 +177,24 @@ on :key_held do |event|
     if ['left', 'right'].include?(event.key)
         🚀[0].direction = event.key
     end
+
+    if game.players == 2
+        if ['a', 'd'].include?(event.key)
+            case event.key
+            when 'a'
+                🚀[1].direction = 'left'
+            when 'd'
+                🚀[1].direction = 'right'
+            end
+        end
+    end
 end
 
 on :key_up do
     🚀[0].direction = nil
+    if game.players == 2
+        🚀[1].direction = nil
+    end
 end
 
 show
