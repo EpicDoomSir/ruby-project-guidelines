@@ -180,6 +180,27 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
         🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
     else
         game.game_over_text
+        on :key_down do |event|
+            if event.key == 'r'
+                🚀.each do |x|
+                    x.healthpoints = 5
+                    x.score = 0
+                    x.start_time = Time.now
+                end
+        
+                if game.players == 2
+                    🚀[0].position = [22, 20]
+                    🚀[1].position = [11, 20]
+                else
+                    🚀[0].position = [16, 20]
+                end
+        
+                🎇 = []
+        
+                🌑 = []
+                🌑 << Asteroid.new
+            end
+        end
     end
     
     🚀.each{|x| !x.dead? ? x.draw : nil }
@@ -227,26 +248,5 @@ on :key_up do
     end
 end
 
-on :key_down do |event|
-    if event.key == 'r'
-        🚀.each do |x|
-            x.healthpoints = 5
-            x.score = 0
-            x.start_time = Time.now
-        end
-
-        if game.players == 2
-            🚀[0].position = [22, 20]
-            🚀[1].position = [11, 20]
-        else
-            🚀[0].position = [16, 20]
-        end
-
-        🎇 = []
-
-        🌑 = []
-        🌑 << Asteroid.new
-    end
-end
 
 show
