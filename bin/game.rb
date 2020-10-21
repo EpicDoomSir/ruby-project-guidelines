@@ -143,9 +143,14 @@ class Game
     def initialize(players=1)
         @players = players
     end
+
+    def game_over_text
+        Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80) # need to find a way to make it centered and scaled with window size
+        Text.new("Press 'R' to restart", color: 'orange', x: (Window.width / 6) + 45, y: (Window.height / 3) + 85, z: 1, size: 40)
+    end
 end
 
-game = Game.new
+game = Game.new(2)
 
 🚀 = []
 🚀 << Ship.new
@@ -174,7 +179,7 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
 
         🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
     else
-        Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80) # need to find a way to make it centered and scaled with window size
+        game.game_over_text
     end
     
     🚀.each{|x| !x.dead? ? x.draw : nil }
@@ -228,6 +233,13 @@ on :key_down do |event|
             x.healthpoints = 5
             x.score = 0
             x.start_time = Time.now
+        end
+
+        if game.players == 2
+            🚀[0].position = [22, 20]
+            🚀[1].position = [11, 20]
+        else
+            🚀[0].position = [16, 20]
         end
 
         🎇 = []
