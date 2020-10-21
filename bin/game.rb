@@ -24,7 +24,7 @@ class Ship # maybe to be moved to it's own file
 
     @@all = []
     @@player_options = [
-        {x: 430, hp_y: 10, score_y: 40, color: 'green'},
+        {x: 450, hp_y: 10, score_y: 40, color: 'green'},
         {x: 10, hp_y: 10, score_y: 40, color: 'purple'}
     ]
 
@@ -138,11 +138,12 @@ class Asteroid
 end # asteroid
 
 class Game
-    attr_accessor :players, :start_timer
+    attr_accessor :players, :start_timer, :started
 
     def initialize(players=1)
         @players = players
         @start_timer = 45
+        @started = false
     end
 
     def game_over_text
@@ -151,7 +152,7 @@ class Game
     end
 
     def starting_text
-        Text.new("#{@start_timer / 15}", color: 'white', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80)
+        Text.new("#{(@start_timer / 15) + 1}", color: 'white', x: (Window.width / 2) - 30, y: Window.height / 3, z: 1, size: 100)
     end
 end
 
@@ -175,19 +176,25 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     clear
 
     unless 🚀.count == 🎇.count # stops the player and asteroid if hp is 0
-        if game.start_timer == 0
+        if game.start_timer == 0 # logic for 3.2.1 timer at the start of the game
+            if !game.started
+                🚀.each{|x| x.start_time = Time.now}
+            end
+
+            game.started = true
+
             🚀.each{|x| x.move}
             🌑.each{|x| x.move}
-            
-            if 🌑.all?{|x| x.reached_end?} # to raise difficalty, add more at a time: this is easy, medium is 2, hard is 3
+
+            if 🌑.all?{|x| x.reached_end?} # to raise difficulty, add more at a time: this is easy, medium is 2, hard is 3 - going to use case on game.difficulty
                 🌑 << Asteroid.new
             end
     
             🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
         else
-            if game.start_timer % 15 == 0
+            # if game.start_timer % 15 == 0
                 game.starting_text
-            end
+            # end
             game.start_timer -= 1
         end
 
@@ -196,6 +203,9 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
 
         on :key_down do |event| # restart logic, resets all the pieces
             if event.key == 'r'
+                game.started = false
+                game.start_timer = 45
+
                 🚀.each do |x|
                     x.healthpoints = 5
                     x.score = 0
