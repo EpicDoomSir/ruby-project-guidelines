@@ -108,7 +108,7 @@ class CLI
         end
 
         if selection == 1
-            pass = @prompt.mask("Please enter a new password:", required: true)
+            passinput = @prompt.mask("Please enter a new password:", required: true)
             User.update(password: passinput)   # Currently changes all users pass
             system("clear")
         elsif selection == 2
