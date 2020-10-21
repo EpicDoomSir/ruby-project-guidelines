@@ -132,7 +132,7 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     unless 🚀.healthpoints <= 0 # stops the player and asteroid
         🚀.move
         🌑.each{|x| x.move}
-        if 🌑.all?{|x| x.reached_end?}
+        if 🌑.all?{|x| x.reached_end?} # to rais difficalty, add more at a time: this is easy, medium is 2, hard is 3
             🌑 << Asteroid.new
         end
         🚀.score = (Time.now - 🚀.start_time)
