@@ -20,6 +20,9 @@ GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Ship # maybe to be moved to it's own file
     attr_accessor :position, :direction, :healthpoints, :score, :start_time
+
+    @@all = []
+
     def initialize
         # if players == 2 set coords to 2 player position
         @position = [16, 20]
@@ -27,6 +30,7 @@ class Ship # maybe to be moved to it's own file
         @healthpoints = 5
         @score = 0
         @start_time = Time.now
+        @@all << self
     end
 
     def draw # draws the ship in correct location and displays hp
@@ -121,32 +125,35 @@ class Asteroid
     
 end # asteroid
 
-🚀 = Ship.new
+🚀 = []
+🚀 << Ship.new
 🌑 = []
 🌑 << Asteroid.new
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
 
-    unless 🚀.healthpoints <= 0 # stops the player and asteroid
-        🚀.move
+    unless 🚀[0].healthpoints <= 0 # stops the player and asteroid
+        🚀.each{|x| x.move}
         🌑.each{|x| x.move}
         if 🌑.all?{|x| x.reached_end?} # to rais difficalty, add more at a time: this is easy, medium is 2, hard is 3
             🌑 << Asteroid.new
         end
-        🚀.score = (Time.now - 🚀.start_time)
+        🚀.each{|x| x.score = (Time.now - x.start_time)}
     else
         Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80)
     end
     
-    🚀.draw
+    🚀.each{|x| x.draw}
     🌑.each{|x| x.draw}
 
     
     # binding.pry
-    🌑.each do |x|
-        if x.asteroid_hit_ship(🚀) # tracks the collision and lowers hp
-            🚀.record_hit
+    🌑.each do |rock|
+        🚀.each do |ship|
+            if rock.asteroid_hit_ship(ship) # tracks the collision and lowers hp
+                ship.record_hit
+            end
         end
     end
 end
@@ -154,12 +161,12 @@ end
 # events to catch user input, going to need to abstract these for the 2 player functionality
 on :key_held do |event|
     if ['left', 'right'].include?(event.key)
-        🚀.direction = event.key
+        🚀[0].direction = event.key
     end
 end
 
 on :key_up do
-    🚀.direction = nil
-  end
+    🚀[0].direction = nil
+end
 
 show
