@@ -222,4 +222,19 @@ on :key_up do
     end
 end
 
+on :key_down do |event|
+    if event.key == 'r'
+        🚀.each do |x|
+            x.healthpoints = 5
+            x.score = 0
+            x.start_time = Time.now
+        end
+
+        🎇 = []
+
+        🌑 = []
+        🌑 << Asteroid.new
+    end
+end
+
 show

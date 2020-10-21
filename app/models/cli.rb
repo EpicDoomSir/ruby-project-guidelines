@@ -34,7 +34,7 @@ class CLI
         if username == nil
             pass = @prompt.mask('Please enter a password:', required: true)
             system("clear")
-            @user = User.create(username: u_input, password: pass)
+            @user << User.create(username: u_input, password: pass)
             system("clear")
             puts "Your account has been created. Welcome to ASTEROIDS, #{u_input}."
         else
@@ -92,6 +92,7 @@ class CLI
     end
 
     def difficulty
+
     end
 
     def leaderboard
