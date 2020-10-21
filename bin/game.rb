@@ -32,7 +32,7 @@ class Ship # maybe to be moved to it's own file
     def draw # draws the ship in correct location and displays hp
         Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: 'green')
         Text.new("HP: #{@healthpoints}", color: 'yellow', x: 10, y: 10, z:1, size: 25)
-        Text.new("Score: #{@score}", color: 'white', x: 400, y: 10, z:1, size: 25)
+        Text.new("Score: #{@score}", color: 'white', x: 430, y: 10, z:1, size: 25)
     end
 
     def move # logic for moving the ship 
@@ -135,6 +135,8 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
             🌑 << Asteroid.new
         end
         🚀.score = (Time.now - 🚀.start_time)
+    else
+        Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80)
     end
     
     🚀.draw
