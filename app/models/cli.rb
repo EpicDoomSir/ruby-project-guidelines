@@ -10,6 +10,7 @@ class CLI
     end
 
     def welcome
+        system("clear")
         puts @pastel.magenta.bold(@font.write("ASTEROIDS".center(30), letter_spacing: 4)) # displays game title
         sleep(1)                          # input a delay before displaying the menu/selection screen below
 

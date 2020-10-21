@@ -24,12 +24,11 @@ class Ship # maybe to be moved to it's own file
 
     @@all = []
     @@player_options = [
-        {x: 450, hp_y: 10, score_y: 40, color: 'green'},
+        {x: 430, hp_y: 10, score_y: 40, color: 'green'},
         {x: 10, hp_y: 10, score_y: 40, color: 'purple'}
     ]
 
     def initialize
-        # if players == 2 set coords to 2 player position
         @position = [16, 20]
         @direction = nil
         @healthpoints = 5
@@ -161,7 +160,7 @@ game = Game.new # change to Game.new(2) for two player game
 🚀 = []
 🚀 << Ship.new
 
-if game.players == 2
+if game.players == 2 # if players == 2 set coords to 2 player position
     🚀 << Ship.new
     🚀[0].position = [22, 20]
     🚀[1].position = [11, 20]
