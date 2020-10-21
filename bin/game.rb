@@ -145,7 +145,7 @@ class Game
     end
 end
 
-game = Game.new(2)
+game = Game.new
 
 🚀 = []
 🚀 << Ship.new

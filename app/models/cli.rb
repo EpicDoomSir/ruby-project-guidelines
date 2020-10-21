@@ -79,16 +79,22 @@ class CLI
         if selection == 1
             # start game in bin/game.rb
         elsif selection == 2
-            # user able to change difficulty
+            self.difficulty  # user able to change difficulty of game
         elsif selection == 3
             self.profile
         elsif selection == 4
-            # leaderboard
+            self.leaderboard   # leaderboard
         elsif selection == 5
             self.welcome
         else selection == 6
             self.close
         end
+    end
+
+    def difficulty
+    end
+
+    def leaderboard
     end
 
 
@@ -97,16 +103,16 @@ class CLI
             menu.choice 'Change Password'.center(175), 1
             menu.choice 'Delete Account'.center(175), 2
             menu.choice 'High Score'.center(175), 3
-            menu.choice 'Back'.center(175), 4
+            menu.choice 'Return to Main Menu'.center(175), 4
             menu.choice 'Exit'.center(175), 5
         end
 
         if selection == 1
             pass = @prompt.mask("Please enter a new password:", required: true)
-            User.password = pass
-            User.save
+            User.update(password: passinput)   # Currently changes all users pass
+            system("clear")
         elsif selection == 2
-            User.destroy # w/o testing I believe this deletes all user instances. Will try to see if I can pass a user as a param to work
+            user.delete
         elsif selection == 3
             # check personal score of player
         elsif selection == 4
