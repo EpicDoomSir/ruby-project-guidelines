@@ -6,7 +6,7 @@ set background: 'navy'
 set fps_cap: 15
 
 # game over ✅
-# 2 players
+# 2 players ✅
 # 3.2.1 go
 # music & sound effect
 # background
