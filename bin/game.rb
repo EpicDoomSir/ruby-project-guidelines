@@ -8,6 +8,12 @@ set fps_cap: 15
 # width = 640 / 20 = 32
 # height = 480 / 20 = 24
 
+# game over
+# 3.2.1 go
+# life up
+# music & sound effect
+# background
+
 GRID_SIZE = 20
 GRID_WIDTH = Window.width / GRID_SIZE
 GRID_HEIGHT = Window.height / GRID_SIZE
@@ -24,14 +30,6 @@ class Ship # maybe to be moved to it's own file
 
     def draw # draws the ship in correct location and displays hp
         Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: 'green')
-        # I want to add more to the ship but can be done later
-        # Triangle.new(
-            #     x1: 50,  y1: 0,
-        #     x2: 100, y2: 100,
-        #     x3: 0,   y3: 100,
-        #     color: 'red',
-        #     z: 100
-        #   )
         Text.new("HP: #{@healthpoints}", color: 'yellow', x: 10, y: 10, z:1, size: 25)
         Text.new("Score: #{@score}", color: 'white', x: 400, y: 10, z:1, size: 25)
     end
