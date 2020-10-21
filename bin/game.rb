@@ -1,7 +1,7 @@
 require 'ruby2d'
 require 'pry'
 
-FPS = 15
+FPS = 15 # controls the speed of the game, difficulty will raise it. easy: 15, medium: 20, hard: 25
 set background: 'navy'
 set fps_cap: FPS
 
@@ -187,7 +187,7 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
             🚀.each{|x| x.move}
             🌑.each{|x| x.move}
 
-            if 🌑.all?{|x| x.reached_end?} # to raise difficulty, add more at a time: this is easy, medium is 2, hard is 3 - going to use case on game.difficulty
+            if 🌑.all?{|x| x.reached_end?} 
                 🌑 << Asteroid.new
             end
     
