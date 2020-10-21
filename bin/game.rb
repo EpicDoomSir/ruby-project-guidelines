@@ -156,7 +156,7 @@ class Game
     end
 end
 
-game = Game.new
+game = Game.new # change to Game.new(2) for two player game
 
 🚀 = []
 🚀 << Ship.new
