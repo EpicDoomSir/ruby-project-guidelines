@@ -113,7 +113,7 @@ class CLI
             User.update(password: passinput)   # Currently changes all users pass
             system("clear")
         elsif selection == 2
-            user.delete
+            User.last.destroy
         elsif selection == 3
             # check personal score of player
         elsif selection == 4

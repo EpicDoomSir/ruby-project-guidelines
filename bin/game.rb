@@ -138,15 +138,20 @@ class Asteroid
 end # asteroid
 
 class Game
-    attr_accessor :players
+    attr_accessor :players, :start_timer
 
     def initialize(players=1)
         @players = players
+        @start_timer = 45
     end
 
     def game_over_text
         Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80) # need to find a way to make it centered and scaled with window size
         Text.new("Press 'R' to restart", color: 'orange', x: (Window.width / 6) + 45, y: (Window.height / 3) + 85, z: 1, size: 40)
+    end
+
+    def starting_text
+        Text.new("#{@start_timer / 15}", color: 'white', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80)
     end
 end
 
@@ -170,17 +175,26 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     clear
 
     unless 🚀.count == 🎇.count # stops the player and asteroid if hp is 0
-        🚀.each{|x| x.move}
-        🌑.each{|x| x.move}
-
-        if 🌑.all?{|x| x.reached_end?} # to raise difficalty, add more at a time: this is easy, medium is 2, hard is 3
-            🌑 << Asteroid.new
+        if game.start_timer == 0
+            🚀.each{|x| x.move}
+            🌑.each{|x| x.move}
+            
+            if 🌑.all?{|x| x.reached_end?} # to raise difficalty, add more at a time: this is easy, medium is 2, hard is 3
+                🌑 << Asteroid.new
+            end
+    
+            🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
+        else
+            if game.start_timer % 15 == 0
+                game.starting_text
+            end
+            game.start_timer -= 1
         end
 
-        🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
     else
         game.game_over_text
-        on :key_down do |event|
+
+        on :key_down do |event| # restart logic, resets all the pieces
             if event.key == 'r'
                 🚀.each do |x|
                     x.healthpoints = 5
@@ -201,7 +215,7 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
                 🌑 << Asteroid.new
             end
         end
-    end
+    end # end of unless loop
     
     🚀.each{|x| !x.dead? ? x.draw : nil }
     Ship.all.each{|x| x.draw_texts}
