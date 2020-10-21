@@ -34,9 +34,9 @@ class CLI
         if username == nil
             pass = @prompt.mask('Please enter a password:', required: true)
             system("clear")
-            puts "Your account has been created. Welcome to ASTEROIDS, #{u_input}"
             @user = User.create(username: u_input, password: pass)
             system("clear")
+            puts "Your account has been created. Welcome to ASTEROIDS, #{u_input}."
         else
             puts "That username is already taken, please try again."
             self.welcome
@@ -124,6 +124,7 @@ class CLI
 
     def close
         system("clear")
+        sleep(1)
         puts "Thank you for playing, see you again!"
         puts "by Shevaughn and Eitan"
         exit
