@@ -71,7 +71,7 @@ class Asteroid
 
     @@all = []
 
-    def initialize(rock_x=rand(GRID_WIDTH), rock_y=rand(7))
+    def initialize(rock_x=rand(GRID_WIDTH), rock_y=rand(3))
         @rock_x = rock_x
         @rock_y = rock_y
         # @speed = rand(1..3)
