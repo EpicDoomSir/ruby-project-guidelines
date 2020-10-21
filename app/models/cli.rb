@@ -103,10 +103,10 @@ class CLI
 
         if selection == 1
             pass = @prompt.mask("Please enter a new password:", required: true)
-            @user.pass = pass
-            @user.save
+            User.password = pass
+            User.save
         elsif selection == 2
-            @user.destroy # w/o testing I believe this deletes all user instances. Will try to see if I can pass a user as a param to work
+            User.destroy # w/o testing I believe this deletes all user instances. Will try to see if I can pass a user as a param to work
         elsif selection == 3
             # check personal score of player
         elsif selection == 4

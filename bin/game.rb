@@ -5,7 +5,7 @@ require 'pry'
 set background: 'navy'
 set fps_cap: 15
 
-# game over
+# game over ✅
 # 2 players
 # 3.2.1 go
 # music & sound effect
@@ -40,8 +40,15 @@ class Ship # maybe to be moved to it's own file
         @chosen_option = @@player_options[@player_num - 1]
     end
 
+    def self.all
+        @@all
+    end
+
     def draw # draws the ship in correct location and displays hp
         Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: @chosen_option[:color])
+    end
+    
+    def draw_texts
         Text.new("HP: #{@healthpoints}", color: @chosen_option[:color], x: @chosen_option[:x], y: @chosen_option[:hp_y], z:1, size: 25)
         Text.new("Score: #{@score}", color: @chosen_option[:color], x: @chosen_option[:x], y: @chosen_option[:score_y], z:1, size: 25)
     end
@@ -61,6 +68,10 @@ class Ship # maybe to be moved to it's own file
     
     def record_hit # loosing life
         @healthpoints -= 1
+    end
+
+    def dead?
+        @healthpoints <= 0
     end
     
     # access to position of the ship at a given time
@@ -145,13 +156,15 @@ if game.players == 2
     🚀[1].position = [11, 20]
 end
 
+🎇 = []
+
 🌑 = []
 🌑 << Asteroid.new
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
 
-    unless 🚀[0].healthpoints <= 0 # stops the player and asteroid if hp is 0
+    unless 🚀.count == 🎇.uniq.count # stops the player and asteroid if hp is 0
         🚀.each{|x| x.move}
         🌑.each{|x| x.move}
 
@@ -159,12 +172,13 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
             🌑 << Asteroid.new
         end
 
-        🚀.each{|x| x.score = (Time.now - x.start_time)}
+        🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
     else
         Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80) # need to find a way to make it centered and scaled with window size
     end
     
-    🚀.each{|x| x.draw}
+    🚀.each{|x| !x.dead? ? x.draw : nil }
+    Ship.all.each{|x| x.draw_texts}
     🌑.each{|x| x.draw}
 
     
@@ -173,6 +187,9 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
         🚀.each do |ship|
             if rock.asteroid_hit_ship(ship) # tracks the collision and lowers hp
                 ship.record_hit
+                if ship.dead?
+                    🎇 << ship
+                end
             end
         end
     end
