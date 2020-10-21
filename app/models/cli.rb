@@ -82,7 +82,7 @@ class CLI
         elsif selection == 3
             self.profile
         elsif selection == 4
-            # check scores/leaderboard
+            # leaderboard
         else selection == 5
             self.close
         end
@@ -94,12 +94,23 @@ class CLI
             menu.choice 'Change Password'.center(175), 1
             menu.choice 'Delete Account'.center(175), 2
             menu.choice 'High Score'.center(175), 3
+            menu.choice 'Back'.center(175), 4
+            menu.choice 'Exit'.center(175), 5
         end
 
         if selection == 1
             pass = @prompt.mask("Please enter a new password:", required: true)
             @user.password = password
             @user.save
+        elsif selection == 2
+            @user.destroy # w/o testing I believe this deletes all user instances. Will try to see if I can pass a user as a param to work
+        elsif selection == 3
+            # check personal score of player
+        elsif selection == 4
+            self.menu
+        else selection == 5
+            self.close
+        end
     end
 
     def close

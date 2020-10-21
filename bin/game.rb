@@ -23,6 +23,9 @@ class Ship # maybe to be moved to it's own file
     attr_accessor :position, :direction, :healthpoints, :score, :start_time
 
     @@all = []
+    @@player_options = [
+        {x: 10, y:}
+    ]
 
     def initialize
         # if players == 2 set coords to 2 player position
@@ -32,6 +35,7 @@ class Ship # maybe to be moved to it's own file
         @score = 0
         @start_time = Time.now
         @@all << self
+        @player_num = @@all.count
     end
 
     def draw # draws the ship in correct location and displays hp
