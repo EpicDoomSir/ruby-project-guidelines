@@ -13,11 +13,13 @@ GRID_WIDTH = Window.width / GRID_SIZE
 GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Ship # maybe to be moved to it's own file
-    attr_accessor :position, :direction, :healthpoints
+    attr_accessor :position, :direction, :healthpoints, :score, :start_time
     def initialize
         @position = [16, 20]
         @direction = nil
         @healthpoints = 5
+        @score = 0
+        @start_time = Time.now
     end
 
     def draw # draws the ship in correct location and displays hp
@@ -30,7 +32,8 @@ class Ship # maybe to be moved to it's own file
         #     color: 'red',
         #     z: 100
         #   )
-        Text.new("HP: #{@healthpoints}", color: 'red', x: 10, y: 10, size: 25)
+        Text.new("HP: #{@healthpoints}", color: 'yellow', x: 10, y: 10, z:1, size: 25)
+        Text.new("Score: #{@score}", color: 'white', x: 400, y: 10, z:1, size: 25)
     end
 
     def move # logic for moving the ship 
@@ -66,15 +69,16 @@ class Ship # maybe to be moved to it's own file
 end # ship
 
 class Asteroid
-    attr_accessor :rock, :collided
+    attr_accessor :rock, :collided, :reached_end
 
     @@all = []
 
-    def initialize(rock_x=rand(GRID_WIDTH), rock_y=rand(4))
+    def initialize(rock_x=rand(GRID_WIDTH), rock_y=rand(7))
         @rock_x = rock_x
         @rock_y = rock_y
         # @speed = rand(1..3)
         @rock = nil
+        @reached_end = false
         @collided = false
         @@all << self
     end
@@ -89,8 +93,13 @@ class Asteroid
             @rock_y = 0
             @rock_x = rand(GRID_WIDTH)
             # @speed = rand(1..3)
+            @reached_end = true
             @collided = false
         end
+    end
+
+    def reached_end?
+        @reached_end
     end
 
     def asteroid_hit_ship(ship) # returns true if the asteroid and ship occupy the same space
@@ -115,9 +124,7 @@ end # asteroid
 
 🚀 = Ship.new
 🌑 = []
-3.times do
-    🌑 << Asteroid.new
-end
+🌑 << Asteroid.new
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
@@ -125,6 +132,10 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     unless 🚀.healthpoints <= 0 # stops the player and asteroid
         🚀.move
         🌑.each{|x| x.move}
+        if 🌑.all?{|x| x.reached_end?}
+            🌑 << Asteroid.new
+        end
+        🚀.score = (Time.now - 🚀.start_time)
     end
     
     🚀.draw
