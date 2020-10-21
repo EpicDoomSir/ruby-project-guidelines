@@ -164,7 +164,7 @@ end
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
 
-    unless 🚀.count == 🎇.uniq.count # stops the player and asteroid if hp is 0
+    unless 🚀.count == 🎇.count # stops the player and asteroid if hp is 0
         🚀.each{|x| x.move}
         🌑.each{|x| x.move}
 
@@ -185,10 +185,12 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
     # binding.pry
     🌑.each do |rock|
         🚀.each do |ship|
-            if rock.asteroid_hit_ship(ship) # tracks the collision and lowers hp
-                ship.record_hit
-                if ship.dead?
-                    🎇 << ship
+            if !ship.dead?
+                if rock.asteroid_hit_ship(ship) # tracks the collision and lowers hp
+                    ship.record_hit
+                    if ship.dead?
+                        🎇 << ship
+                    end
                 end
             end
         end
