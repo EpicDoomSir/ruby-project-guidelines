@@ -6,7 +6,7 @@ class CLI
         @prompt = TTY::Prompt.new
         @font = TTY::Font.new(:doom)
         @pastel = Pastel.new
-        @user = []
+        # @user = []
     end
 
     def welcome
@@ -34,7 +34,7 @@ class CLI
         if username == nil
             pass = @prompt.mask('Please enter a password:', required: true)
             system("clear")
-            @user << User.create(username: u_input, password: pass)
+            @user = User.create(username: u_input, password: pass)
             system("clear")
             puts "Your account has been created. Welcome to ASTEROIDS, #{u_input}."
         else
@@ -46,7 +46,7 @@ class CLI
 
     def login_acc
         system("clear")
-        u_input = @prompt.ask('Please enter a username:', required: true)
+        u_input = @prompt.ask('Please enter a username:')
         e_user = User.find_by(username: u_input)
         system("clear")
         if e_user == nil
@@ -112,8 +112,14 @@ class CLI
             passinput = @prompt.mask("Please enter a new password:", required: true)
             User.update(password: passinput)   # Currently changes all users pass
             system("clear")
+            puts "You successfully changed your password!"
+            self.menu
         elsif selection == 2
-            User.last.destroy
+            User.delete(@user)
+            system("clear")
+            puts "Your account was deleted. Returning to login screen."
+            sleep(1)
+            self.welcome
         elsif selection == 3
             # check personal score of player
         elsif selection == 4
