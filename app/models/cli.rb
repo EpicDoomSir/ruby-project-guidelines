@@ -70,9 +70,27 @@ class CLI
         selection = @prompt.select("Select an option:\n".center(180)) do |menu|
             menu.choice 'Game Start'.center(175), 1
             menu.choice 'Difficulty'.center(175), 2
-            menu.choice 'Leaderboard'.center(175), 3
-            menu.choice 'Exit'.center(175), 4
+            menu.choice 'Profile'.center(175), 3
+            menu.choice 'Leaderboard'.center(175), 4
+            menu.choice 'Exit'.center(175), 5
         end     
+
+        if selection == 1
+            # start game in bin/game.rb
+        elsif selection == 2
+            # user able to change difficulty
+        elsif selection == 3
+            self.profile
+        elsif selection == 4
+            # check scores/leaderboard
+        else selection == 5
+            self.close
+        end
+    end
+
+
+    def profile
+
     end
 
     def close

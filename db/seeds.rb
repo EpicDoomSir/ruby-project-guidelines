@@ -4,7 +4,7 @@ Game.destroy_all
 Asteroid.destroy_all
 
 
-# used .create method to persist data in our db passing in the key/values
+
 
 eitan = User.create(username: 'Eitan', email_address: 'eitan@test.com', password: '123', high_score: 9000 )
 shevaughn = User.create(username: 'techtwin', email_address: 'twin@test.com', password: '123', high_score: 8400)

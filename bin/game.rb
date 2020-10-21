@@ -6,10 +6,11 @@ set background: 'navy'
 set fps_cap: 15
 
 # game over
+# 2 players
 # 3.2.1 go
-# life up
 # music & sound effect
 # background
+# life up?
 
 # width = 640 / 20 = 32
 # height = 480 / 20 = 24
@@ -51,10 +52,6 @@ class Ship # maybe to be moved to it's own file
             end
         end
     end # move
-
-    # def asteroid_hit_ship(asteroid) # returns true if the asteroid and ship occupy the same space
-    #     asteroid.rock.contains?(@position[0] * GRID_SIZE, @position[1] * GRID_SIZE)
-    # end
     
     def record_hit # loosing life
         @healthpoints -= 1
@@ -79,7 +76,6 @@ class Asteroid
     def initialize(rock_x=rand(GRID_WIDTH), rock_y=rand(3))
         @rock_x = rock_x
         @rock_y = rock_y
-        # @speed = rand(1..3)
         @rock = nil
         @reached_end = false
         @collided = false
@@ -95,7 +91,6 @@ class Asteroid
         if @rock_y >= GRID_HEIGHT # logic to respawn asteroid at top of screen
             @rock_y = 0
             @rock_x = rand(GRID_WIDTH)
-            # @speed = rand(1..3)
             @reached_end = true
             @collided = false
         end
@@ -133,15 +128,15 @@ end # asteroid
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
 
-    unless 🚀[0].healthpoints <= 0 # stops the player and asteroid
+    unless 🚀[0].healthpoints <= 0 # stops the player and asteroid if hp is 0
         🚀.each{|x| x.move}
         🌑.each{|x| x.move}
-        if 🌑.all?{|x| x.reached_end?} # to rais difficalty, add more at a time: this is easy, medium is 2, hard is 3
+        if 🌑.all?{|x| x.reached_end?} # to raise difficalty, add more at a time: this is easy, medium is 2, hard is 3
             🌑 << Asteroid.new
         end
         🚀.each{|x| x.score = (Time.now - x.start_time)}
     else
-        Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80)
+        Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80) # need to find a way to make it centered and scaled with window size
     end
     
     🚀.each{|x| x.draw}
