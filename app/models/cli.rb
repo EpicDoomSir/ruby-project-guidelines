@@ -72,7 +72,8 @@ class CLI
             menu.choice 'Difficulty'.center(175), 2
             menu.choice 'Profile'.center(175), 3
             menu.choice 'Leaderboard'.center(175), 4
-            menu.choice 'Exit'.center(175), 5
+            menu.choice 'Back'.center(175), 5
+            menu.choice 'Exit'.center(175), 6
         end     
 
         if selection == 1
@@ -83,7 +84,9 @@ class CLI
             self.profile
         elsif selection == 4
             # leaderboard
-        else selection == 5
+        elsif selection == 5
+            self.welcome
+        else selection == 6
             self.close
         end
     end
@@ -100,7 +103,7 @@ class CLI
 
         if selection == 1
             pass = @prompt.mask("Please enter a new password:", required: true)
-            @user.password = password
+            @user.pass = pass
             @user.save
         elsif selection == 2
             @user.destroy # w/o testing I believe this deletes all user instances. Will try to see if I can pass a user as a param to work

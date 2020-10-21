@@ -24,7 +24,8 @@ class Ship # maybe to be moved to it's own file
 
     @@all = []
     @@player_options = [
-        {x: 10, y:}
+        {x: 430, hp_y: 10, score_y: 40, color: 'green'},
+        {x: 10, hp_y: 10, score_y: 40, color: 'purple'}
     ]
 
     def initialize
@@ -36,12 +37,13 @@ class Ship # maybe to be moved to it's own file
         @start_time = Time.now
         @@all << self
         @player_num = @@all.count
+        @chosen_option = @@player_options[@player_num - 1]
     end
 
     def draw # draws the ship in correct location and displays hp
-        Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: 'green')
-        Text.new("HP: #{@healthpoints}", color: 'green', x: 10, y: 10, z:1, size: 25)
-        Text.new("Score: #{@score}", color: 'green', x: 10, y: 40, z:1, size: 25)
+        Square.new(x: @position[0] * GRID_SIZE, y: @position[1] * GRID_SIZE, size: GRID_SIZE, color: @chosen_option[:color])
+        Text.new("HP: #{@healthpoints}", color: @chosen_option[:color], x: @chosen_option[:x], y: @chosen_option[:hp_y], z:1, size: 25)
+        Text.new("Score: #{@score}", color: @chosen_option[:color], x: @chosen_option[:x], y: @chosen_option[:score_y], z:1, size: 25)
     end
 
     def move # logic for moving the ship 
