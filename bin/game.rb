@@ -1,9 +1,9 @@
 require 'ruby2d'
 require 'pry'
 
-
+FPS = 15
 set background: 'navy'
-set fps_cap: 15
+set fps_cap: FPS
 
 # game over ✅
 # 2 players ✅
@@ -142,7 +142,7 @@ class Game
 
     def initialize(players=1)
         @players = players
-        @start_timer = 45
+        @start_timer = FPS * 3
         @started = false
     end
 
@@ -152,7 +152,7 @@ class Game
     end
 
     def starting_text
-        Text.new("#{(@start_timer / 15) + 1}", color: 'white', x: (Window.width / 2) - 30, y: Window.height / 3, z: 1, size: 100)
+        Text.new("#{(@start_timer / FPS) + 1}", color: 'white', x: (Window.width / 2) - 30, y: Window.height / 3, z: 1, size: 100)
     end
 end
 
@@ -204,7 +204,7 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
         on :key_down do |event| # restart logic, resets all the pieces
             if event.key == 'r'
                 game.started = false
-                game.start_timer = 45
+                game.start_timer = FPS * 3
 
                 🚀.each do |x|
                     x.healthpoints = 5
