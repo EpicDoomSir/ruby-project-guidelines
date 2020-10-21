@@ -7,7 +7,7 @@ set fps_cap: 15
 
 # game over ✅
 # 2 players ✅
-# 3.2.1 go
+# 3.2.1 go ✅
 # music & sound effect
 # background
 # life up?
@@ -156,7 +156,7 @@ class Game
     end
 end
 
-game = Game.new(2)
+game = Game.new
 
 🚀 = []
 🚀 << Ship.new
@@ -177,7 +177,8 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
 
     unless 🚀.count == 🎇.count # stops the player and asteroid if hp is 0
         if game.start_timer == 0 # logic for 3.2.1 timer at the start of the game
-            if !game.started
+
+            if !game.started # setting start time for only after the timer finished
                 🚀.each{|x| x.start_time = Time.now}
             end
 
@@ -191,10 +192,9 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
             end
     
             🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
-        else
-            # if game.start_timer % 15 == 0
-                game.starting_text
-            # end
+
+        else # code for showing the timer
+            game.starting_text
             game.start_timer -= 1
         end
 
