@@ -5,14 +5,14 @@ require 'pry'
 set background: 'navy'
 set fps_cap: 15
 
-# width = 640 / 20 = 32
-# height = 480 / 20 = 24
-
 # game over
 # 3.2.1 go
 # life up
 # music & sound effect
 # background
+
+# width = 640 / 20 = 32
+# height = 480 / 20 = 24
 
 GRID_SIZE = 20
 GRID_WIDTH = Window.width / GRID_SIZE
@@ -21,6 +21,7 @@ GRID_HEIGHT = Window.height / GRID_SIZE
 class Ship # maybe to be moved to it's own file
     attr_accessor :position, :direction, :healthpoints, :score, :start_time
     def initialize
+        # if players == 2 set coords to 2 player position
         @position = [16, 20]
         @direction = nil
         @healthpoints = 5
