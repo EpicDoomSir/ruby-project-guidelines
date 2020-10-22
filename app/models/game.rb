@@ -55,7 +55,7 @@ class Game < ActiveRecord::Base
                 self.game_over_text
                 self.music.fadeout(2000)
         
-                on :key_down do |event| # restart logic, resets all the pieces
+                Window.on :key_down do |event| # restart logic, resets all the pieces
                     if event.key == 'r'
                         self.started = false
                         self.start_timer = $FPS * 3
@@ -104,13 +104,12 @@ class Game < ActiveRecord::Base
                 end
             end
         end
-        Window.show
-
-        on :key_held do |event|
+        
+        Window.on :key_held do |event|
             if ['left', 'right'].include?(event.key)
                 🚀[0].direction = event.key
             end
-        
+            
             if self.players == 2
                 if ['a', 'd'].include?(event.key)
                     case event.key
@@ -123,11 +122,12 @@ class Game < ActiveRecord::Base
             end
         end
         
-        on :key_up do
+        Window.on :key_up do
             🚀[0].direction = nil
             if self.players == 2
                 🚀[1].direction = nil
             end
         end
+        Window.show
     end
 end
