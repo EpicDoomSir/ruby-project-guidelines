@@ -134,26 +134,26 @@ class CLI
 
     case diff
     when 1
-      # FPS
-      # system('clear')
-      # sleep(1)
-      # puts 'Difficulty changed to Easy'
+      $FPS
+      system('clear')
+      sleep(1)
+      puts 'Difficulty changed to Easy'
       sleep(1)
       system('clear')
       menu
     when 2
-      # FPS = 20
-      # system('clear')
-      # sleep(1)
-      # puts 'Difficulty changed to Medium'
+      $FPS = 20
+      system('clear')
+      sleep(1)
+      puts 'Difficulty changed to Medium'
       sleep(1)
       system('clear')
       menu
     when 3
-      # FPS = 25
-      # system('clear')
-      # sleep(1)
-      # puts 'Difficulty changed to Hard'
+      $FPS = 25
+      system('clear')
+      sleep(1)
+      puts 'Difficulty changed to Hard'
       sleep(1)
       system('clear')
       menu
