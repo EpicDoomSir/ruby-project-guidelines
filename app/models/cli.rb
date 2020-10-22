@@ -162,6 +162,13 @@ class CLI
   end
 
   def leaderboard
+    puts "==================="
+    puts "Ship 1"
+    puts "Score:"
+    # puts "==========="
+    # puts "Ship 2"    if game = Game.new(2) display second ship score?
+    # puts "Score:"
+    puts "==================="
   end
 
 
@@ -177,7 +184,7 @@ class CLI
     case selection
     when 1
       passinput = @prompt.mask("Please enter a new password:", required: true)
-      User.update(password: passinput)   # Currently changes all users pass
+      @user.update(password: passinput)   # Currently changes all users pass
       system("clear")
       puts "You successfully changed your password!\n".center(175)
       sleep(2)
@@ -189,7 +196,9 @@ class CLI
       sleep(2)
       welcome
     when 3
-        # check personal score of player, using bin/game.rb score method?
+      Ship.map do
+      end
+        # check personal score of player
     when 4
       system('clear')
       self.menu
