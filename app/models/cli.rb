@@ -161,6 +161,13 @@ class CLI
   end
 
   def leaderboard
+    puts "==================="
+    puts "Ship 1"
+    puts "Score:"
+    # puts "==========="
+    # puts "Ship 2"    if game = Game.new(2) display second ship score?
+    # puts "Score:"
+    puts "==================="
   end
 
 
@@ -188,7 +195,8 @@ class CLI
       sleep(2)
       welcome
     when 3
-        # check personal score of player, using bin/game.rb score method?
+      Ship.map do
+        # check personal score of player
     when 4
       system('clear')
       self.menu
