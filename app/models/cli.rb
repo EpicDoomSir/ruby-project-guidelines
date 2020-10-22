@@ -88,8 +88,6 @@ class CLI
     end
     case selection
     when 1
-      # require_relative '../../bin/game'       # throws an error def initialize wrong number of arguments
-      # Ship.new()
       game = Game.new # change to Game.new(2) for two player game
       🚀 = []
       🚀 << Ship.new
@@ -128,7 +126,7 @@ class CLI
     diff = @prompt.select("") do |menu|
       menu.choice 'Easy'.center(175), 1
       menu.choice 'Medium'.center(175), 2
-      menu.choice 'Hard'.center(175), 3
+      menu.choice "Hard\n".center(175), 3
       menu.choice 'Back'.center(175), 4
     end
 
@@ -137,7 +135,7 @@ class CLI
       $FPS
       system('clear')
       sleep(1)
-      puts 'Difficulty changed to Easy'
+      puts 'Difficulty changed to Easy'.center(175)
       sleep(1)
       system('clear')
       menu
@@ -145,7 +143,7 @@ class CLI
       $FPS = 20
       system('clear')
       sleep(1)
-      puts 'Difficulty changed to Medium'
+      puts 'Difficulty changed to Medium'.center(175)
       sleep(1)
       system('clear')
       menu
@@ -153,7 +151,7 @@ class CLI
       $FPS = 25
       system('clear')
       sleep(1)
-      puts 'Difficulty changed to Hard'
+      puts 'Difficulty changed to Hard'.center(175)
       sleep(1)
       system('clear')
       menu
@@ -170,7 +168,7 @@ class CLI
     selection = @prompt.select("") do |menu|
       menu.choice 'Change Password'.center(175), 1
       menu.choice 'Delete Account'.center(175), 2
-      menu.choice 'High Score'.center(175), 3
+      menu.choice "High Score\n".center(175), 3
       menu.choice 'Return to Main Menu'.center(175), 4
       menu.choice 'Exit'.center(175), 5
     end
