@@ -1,6 +1,6 @@
 require 'pry'
 require 'tty-prompt'
-# require_relative '../../bin/game'
+require_relative '../../bin/game'
 class CLI
   def initialize
     @prompt = TTY::Prompt.new
@@ -113,11 +113,26 @@ end
 
     case diff
     when 1
-      # set game FPS of 15 (FPS)
+      # FPS
+      # system('clear')
+      # sleep(1)
+      # puts 'Difficulty changed to Easy'
+      # sleep(1)
+      # menu
     when 2
-      # set game FPS of 20 (FPS = 20 ?)
+      # FPS = 20
+      # system('clear')
+      # sleep(1)
+      # puts 'Difficulty changed to Medium'
+      # sleep(1)
+      # menu
     when 3
-      # set game FPS of 25 (FPS = 25 ?)
+      # FPS = 25
+      # system('clear')
+      # sleep(1)
+      # puts 'Difficulty changed to Hard'
+      # sleep(1)
+      # menu
     end
   end
 
