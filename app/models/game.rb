@@ -28,6 +28,7 @@ class Game < ActiveRecord::Base
     end
 
     def run(🚀, 🎇, 🌑)
+        Window.set title: 'Asteroids'
         Window.set background: 'navy'
         Window.set fps_cap: $FPS
         Window.update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
@@ -95,8 +96,9 @@ class Game < ActiveRecord::Base
                 
                         🌑 = []
                         🌑 << Asteroid.new
-                    elsif event.key == 'q'
-                        Window.close
+                    # in theory this would close the game window, but we ran into issues using the built in close method
+                    # elsif event.key == 'q'
+                    #     Window.close
                     end
 
         
