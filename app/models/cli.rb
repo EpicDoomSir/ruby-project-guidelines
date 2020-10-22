@@ -110,6 +110,15 @@ end
       menu.choice 'Medium'.center(175), 2
       menu.choice 'Hard'.center(175), 3
     end
+
+    case diff
+    when 1
+      # set game FPS of 15
+    when 2
+      # set game FPS of 20
+    when 3
+      # set game FPS of 25
+    end
   end
 
   def leaderboard
@@ -140,7 +149,7 @@ end
       sleep(2)
       welcome
     when 3
-        # check personal score of player
+        # check personal score of player, using bin/game.rb score method?
     when 4
       system('clear')
       self.menu
