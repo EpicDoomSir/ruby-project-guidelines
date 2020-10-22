@@ -82,7 +82,7 @@ class CLI
       menu.choice 'Game Start'.center(175), 1
       menu.choice 'Choose Difficulty'.center(175), 2
       menu.choice 'Profile'.center(175), 3
-      menu.choice 'Leaderboard'.center(175), 4
+      menu.choice "Leaderboard\n".center(175), 4
       menu.choice 'Back'.center(175), 5
       menu.choice 'Exit'.center(175), 6
     end
@@ -120,24 +120,27 @@ class CLI
       # system('clear')
       # sleep(1)
       # puts 'Difficulty changed to Easy'
-      # sleep(1)
-      # menu
+      sleep(1)
+      system('clear')
+      menu
     when 2
       # FPS = 20
       # system('clear')
       # sleep(1)
       # puts 'Difficulty changed to Medium'
-      # sleep(1)
-      # menu
+      sleep(1)
+      system('clear')
+      menu
     when 3
       # FPS = 25
       # system('clear')
       # sleep(1)
       # puts 'Difficulty changed to Hard'
-      # sleep(1)
-      # menu
+      sleep(1)
+      system('clear')
+      menu
     when 4
-        menu
+      menu
     end
   end
 

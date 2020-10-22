@@ -20,7 +20,7 @@ GRID_WIDTH = Window.width / GRID_SIZE
 GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Ship # maybe to be moved to it's own file
-    attr_accessor :position, :direction, :healthpoints, :score, :start_time, :ambience
+    attr_accessor :position, :direction, :healthpoints, :score, :start_time
 
     @@all = []
     @@player_options = [
@@ -37,8 +37,6 @@ class Ship # maybe to be moved to it's own file
         @@all << self
         @player_num = @@all.count
         @chosen_option = @@player_options[@player_num - 1]
-
-        @ambience = Music.new('./app/game_sounds/ambient_engine.mp3')
     end
 
     def self.all
@@ -145,7 +143,7 @@ class Game
         @players = players
         @start_timer = FPS * 3
         @started = false
-        @music = Music.new('./app/game_sounds/game_background.ogg')
+        @music = Music.new('./app/game_sounds/abackground_and_engine.wav')
     end
 
     def game_over_text
@@ -158,7 +156,7 @@ class Game
     end
 end
 
-game = Game.new(2) # change to Game.new(2) for two player game
+game = Game.new # change to Game.new(2) for two player game
 
 🚀 = []
 🚀 << Ship.new
@@ -174,8 +172,7 @@ end
 🌑 = []
 🌑 << Asteroid.new
 
-# 🚀[0].ambience.play
-# game.music.play
+game.music.play
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
@@ -205,16 +202,15 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
 
     else
         game.game_over_text
+        game.music.fadeout(2000)
 
         on :key_down do |event| # restart logic, resets all the pieces
             if event.key == 'r'
                 game.started = false
                 game.start_timer = FPS * 3
 
-                # game.music.stop
-                # 🚀[0].ambience.stop
-                # game.music.play
-                # 🚀[0].ambience.play
+                
+                game.music.play
 
                 🚀.each do |x|
                     x.healthpoints = 5
