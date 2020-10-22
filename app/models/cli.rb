@@ -1,6 +1,6 @@
 require 'pry'
 require 'tty-prompt'
-# require_relative '../../bin/game'
+require_relative '../../bin/game'
 class CLI
   def initialize
     @prompt = TTY::Prompt.new
@@ -90,6 +90,24 @@ class CLI
     when 1
       # require_relative '../../bin/game'       # throws an error def initialize wrong number of arguments
       # Ship.new()
+      game = Game.new # change to Game.new(2) for two player game
+      🚀 = []
+      🚀 << Ship.new
+
+      if game.players == 2 # if players == 2 set coords to 2 player position
+          🚀 << Ship.new
+          🚀[0].position = [22, 20]
+          🚀[1].position = [11, 20]
+      end
+
+      🎇 = []
+
+      🌑 = []
+      🌑 << Asteroid.new
+
+      game.music.play
+
+      game.run(🚀, 🎇, 🌑)
     when 2
       difficulty  # user able to change difficulty of game
     when 3
