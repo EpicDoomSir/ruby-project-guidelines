@@ -2,7 +2,7 @@
 
 Our spin on the classic game Asteroids.
 
-![game menu](https://i.imgur.com/rvQgs9F.png)
+![game menu](https://i.imgur.com/Dguu43d.png)
 
 ## User Stories
 
@@ -22,7 +22,7 @@ Our spin on the classic game Asteroids.
 
 1. Fork and clone this repository.
 2. `cd` into the forked folder and open it in your text editor
-3. Open up your terminal and run `ruby bin/game.rb`
+3. Open up your terminal and run `ruby bin/run.rb`
 
 ---
 # Authors:
