@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_182536) do
+ActiveRecord::Schema.define(version: 2020_10_22_194515) do
+
+  create_table "asteroids", force: :cascade do |t|
+    t.integer "hp"
+    t.integer "size"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.string "difficulty"

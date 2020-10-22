@@ -197,6 +197,7 @@ class CLI
       welcome
     when 3
       Ship.map do
+      end
         # check personal score of player
     when 4
       system('clear')
