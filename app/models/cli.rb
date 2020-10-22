@@ -58,7 +58,7 @@ class CLI
     system("clear")
     sleep(1)
     if e_user == nil
-      puts "User not found, try again!".center(175)
+      puts "User not found, please try again!".center(175)
       sleep(2)
       welcome
     else pass = @prompt.mask('Please enter a password:', required: true)
@@ -66,8 +66,9 @@ class CLI
          system("clear")
          sleep(1)
          if login == nil
-           puts "Wrong password, try again!"
-           login_acc
+           puts "Incorrect password, please sign in again!".center(175)
+           sleep(1)
+           welcome
          else
            puts "Welcome back #{e_user.username}!"
          end
@@ -87,7 +88,8 @@ class CLI
     end
     case selection
     when 1
-      Ship.new
+      # require_relative '../../bin/game'       # throws an error def initialize wrong number of arguments
+      # Ship.new()
     when 2
       difficulty  # user able to change difficulty of game
     when 3
@@ -109,6 +111,7 @@ class CLI
       menu.choice 'Easy'.center(175), 1
       menu.choice 'Medium'.center(175), 2
       menu.choice 'Hard'.center(175), 3
+      menu.choice 'Back'.center(175), 4
     end
 
     case diff
@@ -133,6 +136,8 @@ class CLI
       # puts 'Difficulty changed to Hard'
       # sleep(1)
       # menu
+    when 4
+        menu
     end
   end
 
