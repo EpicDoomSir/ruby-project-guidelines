@@ -33,7 +33,7 @@ end
     username = User.find_by(username: u_input)
     system('clear')
     sleep(1)
-    email_input = @prompt.ask('Please enter your email address:', required: true)
+    email_input = @prompt.ask('Please enter your email address:') { |q| q.validate :email }
     email = User.find_by(email_address: email_input)
     system("clear")
     if username == nil
@@ -113,11 +113,11 @@ end
 
     case diff
     when 1
-      # set game FPS of 15
+      # set game FPS of 15 (FPS)
     when 2
-      # set game FPS of 20
+      # set game FPS of 20 (FPS = 20 ?)
     when 3
-      # set game FPS of 25
+      # set game FPS of 25 (FPS = 25 ?)
     end
   end
 
