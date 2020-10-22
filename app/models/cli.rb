@@ -31,15 +31,21 @@ end
   def new_acc
     u_input = @prompt.ask('Please enter a username:', required: true)
     username = User.find_by(username: u_input)
+    system('clear')
+    sleep(1)
+    email_input = @prompt.ask('Please enter your email address:', required: true)
+    email = User.find_by(email_address: email_input)
     system("clear")
     if username == nil
       pass = @prompt.mask('Please enter a password:', required: true)
       system("clear")
-      @user = User.create(username: u_input, password: pass)
+      @user = User.create(username: u_input, email_address: email_input, password: pass)
       system("clear")
       puts "Your account has been created. Welcome to ASTEROIDS, #{u_input}."
+      sleep(1)
     else
       puts "That username is already taken, please try again."
+      sleep(2)
       welcome
     end
     menu
@@ -50,12 +56,15 @@ end
     u_input = @prompt.ask('Please enter a username:')
     e_user = User.find_by(username: u_input)
     system("clear")
+    sleep(1)
     if e_user == nil
-      puts "User not found, try again!"
-      login_acc
+      puts "User not found, try again!".center(175)
+      sleep(2)
+      welcome
     else pass = @prompt.mask('Please enter a password:', required: true)
          login = User.find_by(username: u_input, password: pass)
          system("clear")
+         sleep(1)
          if login == nil
            puts "Wrong password, try again!"
            login_acc
@@ -70,7 +79,7 @@ end
     puts "Main Menu\n\n".center(180) # add new line char
     selection = @prompt.select("Select an option:\n".center(180)) do |menu|
       menu.choice 'Game Start'.center(175), 1
-      menu.choice 'Difficulty'.center(175), 2
+      menu.choice 'Choose Difficulty'.center(175), 2
       menu.choice 'Profile'.center(175), 3
       menu.choice 'Leaderboard'.center(175), 4
       menu.choice 'Back'.center(175), 5
@@ -85,7 +94,7 @@ end
       profile
     when 4
       leaderboard   # leaderboard
-    when 5 
+    when 5
       system('clear')
       welcome
     when 6
@@ -96,7 +105,11 @@ end
   end
 
   def difficulty
-
+    diff = @prompt.select("") do |menu|
+      menu.choice 'Easy'.center(175), 1
+      menu.choice 'Medium'.center(175), 2
+      menu.choice 'Hard'.center(175), 3
+    end
   end
 
   def leaderboard
