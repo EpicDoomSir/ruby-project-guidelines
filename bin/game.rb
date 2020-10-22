@@ -20,7 +20,7 @@ GRID_WIDTH = Window.width / GRID_SIZE
 GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Ship # maybe to be moved to it's own file
-    attr_accessor :position, :direction, :healthpoints, :score, :start_time
+    attr_accessor :position, :direction, :healthpoints, :score, :start_time, :ambience
 
     @@all = []
     @@player_options = [
@@ -37,6 +37,8 @@ class Ship # maybe to be moved to it's own file
         @@all << self
         @player_num = @@all.count
         @chosen_option = @@player_options[@player_num - 1]
+
+        @ambience = Music.new('./app/game_sounds/ambient_engine.mp3')
     end
 
     def self.all
@@ -137,14 +139,13 @@ class Asteroid
 end # asteroid
 
 class Game
-    attr_accessor :players, :start_timer, :started, :music, :ambience
+    attr_accessor :players, :start_timer, :started, :music
 
     def initialize(players=1)
         @players = players
         @start_timer = FPS * 3
         @started = false
-        @music = Sound.new('./app/game_sounds/game_background.ogg')
-        @ambience = Sound.new('./app/game_sounds/ambient_engine.mp3')
+        @music = Music.new('./app/game_sounds/game_background.ogg')
     end
 
     def game_over_text
@@ -157,7 +158,7 @@ class Game
     end
 end
 
-game = Game.new # change to Game.new(2) for two player game
+game = Game.new(2) # change to Game.new(2) for two player game
 
 🚀 = []
 🚀 << Ship.new
@@ -173,8 +174,8 @@ end
 🌑 = []
 🌑 << Asteroid.new
 
-game.music.play
-game.ambience.play
+# 🚀[0].ambience.play
+# game.music.play
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
@@ -209,6 +210,11 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
             if event.key == 'r'
                 game.started = false
                 game.start_timer = FPS * 3
+
+                # game.music.stop
+                # 🚀[0].ambience.stop
+                # game.music.play
+                # 🚀[0].ambience.play
 
                 🚀.each do |x|
                     x.healthpoints = 5
