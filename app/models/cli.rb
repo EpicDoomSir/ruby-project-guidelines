@@ -82,7 +82,7 @@ class CLI
       menu.choice 'Game Start'.center(175), 1
       menu.choice 'Choose Difficulty'.center(175), 2
       menu.choice 'Profile'.center(175), 3
-      menu.choice "Leaderboard\n".center(175), 4
+      menu.choice "Leaderboard\n".center(176), 4
       menu.choice 'Back'.center(175), 5
       menu.choice 'Exit'.center(175), 6
     end
@@ -162,13 +162,21 @@ class CLI
   end
 
   def leaderboard
-    puts "==================="
-    puts "Ship 1"
-    puts "Score:"
-    # puts "==========="
-    # puts "Ship 2"    if game = Game.new(2) display second ship score?
-    # puts "Score:"
-    puts "==================="
+    puts "===================".center(175)
+    puts "Ship 1".center(175)
+    puts "Score: \n".center(175)
+    puts "===========".center(175)
+    puts "Ship 2".center(175)
+    puts "Score: \n".center(175)
+    puts "===================".center(175)
+    sleep(2)
+    selection = @prompt.select("") do |menu|
+      menu.choice 'Return to Main Menu'.center(175), 1
+    end
+    if selection == 1
+      system('clear')
+      menu
+    end
   end
 
 
@@ -196,8 +204,6 @@ class CLI
       sleep(2)
       welcome
     when 3
-      Ship.map do
-      end
         # check personal score of player
     when 4
       system('clear')
