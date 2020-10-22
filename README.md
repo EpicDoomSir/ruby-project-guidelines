@@ -2,7 +2,7 @@
 
 Our spin on the classic game Asteroids.
 
-![game menu](https://i.imgur.com/rvQgs9F.png)
+![game menu](https://i.imgur.com/Dguu43d.png)
 
 ## User Stories
 
