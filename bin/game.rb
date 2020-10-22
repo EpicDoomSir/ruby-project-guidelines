@@ -20,7 +20,7 @@ GRID_WIDTH = Window.width / GRID_SIZE
 GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Ship # maybe to be moved to it's own file
-    attr_accessor :position, :direction, :healthpoints, :score, :start_time
+    attr_accessor :position, :direction, :healthpoints, :score, :start_time, :crash
 
     @@all = []
     @@player_options = [
@@ -37,6 +37,8 @@ class Ship # maybe to be moved to it's own file
         @@all << self
         @player_num = @@all.count
         @chosen_option = @@player_options[@player_num - 1]
+
+        @crash = Sound.new("./app/game_sounds/crash2.wav")
     end
 
     def self.all
@@ -243,6 +245,7 @@ update do # actual logic of the game, runs every frame (speed controlled by fps_
         🚀.each do |ship|
             if !ship.dead?
                 if rock.asteroid_hit_ship(ship) # tracks the collision and lowers hp
+                    ship.crash.play
                     ship.record_hit
                     if ship.dead?
                         🎇 << ship
