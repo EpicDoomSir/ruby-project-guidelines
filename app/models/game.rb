@@ -95,7 +95,11 @@ class Game < ActiveRecord::Base
                 
                         🌑 = []
                         🌑 << Asteroid.new
+                    elsif event.key == 'q'
+                        Window.close
                     end
+
+        
                 end
             end # end of unless loop
             
