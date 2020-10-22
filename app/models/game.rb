@@ -4,15 +4,17 @@ class Game < ActiveRecord::Base
     has_many :ships
     has_many :users, through: :ships
 
-    attr_accessor :players, :start_timer, :started
-    attr_reader :starting_sound, :music
+    attr_accessor :players, :start_timer, :started, :finish_flag
+    attr_reader :starting_sound, :music, :game_over_sound
 
     def initialize(players=1)
         @players = players
         @start_timer = $FPS * 3
         @started = false
+        @finish_flag = 0
         @music = Music.new('./app/game_sounds/abackground_and_engine.wav')
         @starting_sound = Sound.new('./app/game_sounds/321_countdown.mp3')
+        @game_over_sound = Sound.new('./app/game_sounds/gameover.mp3')
         @music.volume = 50
     end
 
@@ -34,7 +36,7 @@ class Game < ActiveRecord::Base
             unless 🚀.count == 🎇.count # stops the player and asteroid if hp is 0
                 if self.start_timer == 0 # logic for 3.2.1 timer at the start of the game
         
-                    if !self.started # setting start time for only after the timer finished
+                    if !self.started # setting start time for only after the timer.finish_flag
                         🚀.each{|x| x.start_time = Time.now}
                     end
         
@@ -60,14 +62,19 @@ class Game < ActiveRecord::Base
                 end
         
             else
+                if self.finish_flag == 0
+                    self.game_over_sound.play
+                    self.finish_flag +=1
+                end
                 self.game_over_text
-                self.music.fadeout(2000)
-        
+                self.music.fadeout(1500)
+                
                 Window.on :key_down do |event| # restart logic, resets all the pieces
                     if event.key == 'r'
                         self.started = false
                         self.start_timer = $FPS * 3
-        
+                        
+                        self.finish_flag = 0
                         
                         self.music.play
         
