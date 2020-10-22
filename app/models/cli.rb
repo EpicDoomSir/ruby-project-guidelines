@@ -176,7 +176,7 @@ class CLI
     case selection
     when 1
       passinput = @prompt.mask("Please enter a new password:", required: true)
-      User.update(password: passinput)   # Currently changes all users pass
+      @user.update(password: passinput)   # Currently changes all users pass
       system("clear")
       puts "You successfully changed your password!\n".center(175)
       sleep(2)
