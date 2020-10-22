@@ -1,6 +1,6 @@
 require 'pry'
 require 'tty-prompt'
-require_relative '../../bin/game'
+# require_relative '../../bin/game'
 class CLI
   def initialize
     @prompt = TTY::Prompt.new
@@ -15,10 +15,10 @@ class CLI
     sleep(1)                          # input a delay before displaying the menu/selection screen below
 
     selection = @prompt.select("\n".center(185)) do |menu|
-  menu.choice 'Create Account'.center(180), 1
-  menu.choice 'Sign In'.center(180), 2
-  menu.choice 'Exit'.center(180), 3
-end
+      menu.choice 'Create Account'.center(180), 1
+      menu.choice 'Sign In'.center(180), 2
+      menu.choice 'Exit'.center(180), 3
+    end
     if selection == 1
       new_acc
     elsif selection == 2
