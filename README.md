@@ -28,3 +28,6 @@ Our spin on the classic game Asteroids.
 # Authors:
 
 Eitan Charytan-Spitz & Shevaughn Grant
+
+Sound from Zapsplat.com
+Royalty Free Music from Bensound
