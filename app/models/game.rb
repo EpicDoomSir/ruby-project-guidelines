@@ -12,10 +12,10 @@ class Game < ActiveRecord::Base
         @start_timer = $FPS * 3
         @started = false
         @finish_flag = 0
-        @music = Music.new('./app/game_sounds/abackground_and_engine.wav')
-        @starting_sound = Sound.new('./app/game_sounds/321_countdown.mp3')
-        @game_over_sound = Sound.new('./app/game_sounds/gameover.mp3')
-        @music.volume = 50
+        # @music = Music.new('./app/game_sounds/abackground_and_engine.wav')
+        # @starting_sound = Sound.new('./app/game_sounds/321_countdown.mp3')
+        # @game_over_sound = Sound.new('./app/game_sounds/gameover.mp3')
+        # @music.volume = 50
     end
 
     def game_over_text
@@ -55,7 +55,7 @@ class Game < ActiveRecord::Base
                     self.starting_text
 
                     if self.start_timer % $FPS == 0
-                        self.starting_sound.play
+                        $STARTING_SOUND.play
                     end
 
                     self.start_timer -= 1
@@ -63,11 +63,11 @@ class Game < ActiveRecord::Base
         
             else
                 if self.finish_flag == 0
-                    self.game_over_sound.play
+                    $GAME_OVER_SOUND.play
                     self.finish_flag +=1
                 end
                 self.game_over_text
-                self.music.fadeout(1500)
+                $MUSIC.fadeout(1500)
                 
                 Window.on :key_down do |event| # restart logic, resets all the pieces
                     if event.key == 'r'
@@ -76,7 +76,7 @@ class Game < ActiveRecord::Base
                         
                         self.finish_flag = 0
                         
-                        self.music.play
+                        $MUSIC.play
         
                         🚀.each do |x|
                             x.healthpoints = 5
@@ -113,7 +113,7 @@ class Game < ActiveRecord::Base
                 🚀.each do |ship|
                     if !ship.dead?
                         if rock.asteroid_hit_ship(ship) # tracks the collision and lowers hp
-                            ship.crash.play
+                            $CRASH.play
                             ship.record_hit
                             if ship.dead?
                                 🎇 << ship

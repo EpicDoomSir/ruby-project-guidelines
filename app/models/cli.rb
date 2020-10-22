@@ -103,7 +103,7 @@ class CLI
       🌑 = []
       🌑 << Asteroid.new
 
-      game.music.play
+      $MUSIC.play
 
       game.run(🚀, 🎇, 🌑)
       menu

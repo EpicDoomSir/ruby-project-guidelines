@@ -14,7 +14,11 @@ $FPS = 15 # controls the speed of the game, difficulty will raise it. easy: 15, 
 
 # width = 640 / 20 = 32
 # height = 480 / 20 = 24
-
+$GAME_OVER_SOUND = Sound.new('./app/game_sounds/gameover.mp3')
+$STARTING_SOUND = Sound.new('./app/game_sounds/321_countdown.mp3')
+$MUSIC = Music.new('./app/game_sounds/abackground_and_engine.wav')
+$MUSIC.volume = 50
+$CRASH = Sound.new("./app/game_sounds/crash2.wav")
 $GRID_SIZE = 20
 $GRID_WIDTH = Window.width / $GRID_SIZE
 $GRID_HEIGHT = Window.height / $GRID_SIZE

@@ -20,7 +20,7 @@ class Ship < ActiveRecord::Base
         @player_num = @@all.count
         @chosen_option = @@player_options[@player_num - 1]
 
-        @crash = Sound.new("./app/game_sounds/crash2.wav")
+        # crash = Sound.new("./app/game_sounds/crash2.wav")
     end
 
     def self.all
