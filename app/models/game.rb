@@ -4,13 +4,16 @@ class Game < ActiveRecord::Base
     has_many :ships
     has_many :users, through: :ships
 
-    attr_accessor :players, :start_timer, :started, :music
+    attr_accessor :players, :start_timer, :started
+    attr_reader :starting_sound, :music
 
     def initialize(players=1)
         @players = players
         @start_timer = $FPS * 3
         @started = false
         @music = Music.new('./app/game_sounds/abackground_and_engine.wav')
+        @starting_sound = Sound.new('./app/game_sounds/321_countdown.mp3')
+        @music.volume = 50
     end
 
     def game_over_text
@@ -48,6 +51,11 @@ class Game < ActiveRecord::Base
         
                 else # code for showing the timer
                     self.starting_text
+
+                    if self.start_timer % $FPS == 0
+                        self.starting_sound.play
+                    end
+
                     self.start_timer -= 1
                 end
         
