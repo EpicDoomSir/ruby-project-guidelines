@@ -137,12 +137,14 @@ class Asteroid
 end # asteroid
 
 class Game
-    attr_accessor :players, :start_timer, :started
+    attr_accessor :players, :start_timer, :started, :music, :ambience
 
     def initialize(players=1)
         @players = players
         @start_timer = FPS * 3
         @started = false
+        @music = Sound.new('./app/game_sounds/game_background.ogg')
+        @ambience = Sound.new('./app/game_sounds/ambient_engine.mp3')
     end
 
     def game_over_text
@@ -170,6 +172,9 @@ end
 
 🌑 = []
 🌑 << Asteroid.new
+
+game.music.play
+game.ambience.play
 
 update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
     clear
