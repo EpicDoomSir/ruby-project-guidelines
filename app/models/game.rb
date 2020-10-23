@@ -82,7 +82,7 @@ class Game < ActiveRecord::Base
                 🚀.each do |x|
                     x.update_attribute(:scores, x.scores)
                     if x.scores != 0 && self.finish_flag == 1
-                        Highscore.create(user_id: user.id, game_id: self.id, score: x.scores)
+                        Highscore.create(user_id: x.user_id, game_id: self.id, score: x.scores)
                     end
                 end
                 self.finish_flag += 1

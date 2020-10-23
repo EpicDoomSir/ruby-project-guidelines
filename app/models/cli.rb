@@ -94,7 +94,7 @@ class CLI
       🚀 << Ship.create(user_id: @user.id, game_id: game.id, hp: 5, scores: 0, position_x: 16, position_y: 20, start_time: Time.now, player_option: 0)
       
       if game.players == 2 # if players == 2 set coords to 2 player position
-          🚀 << Ship.create(user_id: @user.id, game_id: game.id, hp: 5, scores: 0, position_x: 11, position_y: 20, start_time: Time.now, player_option: 1)
+          🚀 << Ship.create(user_id: @user2.id, game_id: game.id, hp: 5, scores: 0, position_x: 11, position_y: 20, start_time: Time.now, player_option: 1)
           🚀[0].position_x = 22
           🚀[0].position_y = 20
       end
@@ -127,6 +127,30 @@ class CLI
     end
   end
 
+  def login_acc2
+    system("clear")
+    u_input = @prompt.ask('Please enter a username:')
+    e_user = User.find_by(username: u_input)
+    system("clear")
+    sleep(1)
+    if e_user == nil
+      puts "User not found, please try again!".center(175)
+      sleep(2)
+      welcome
+    else pass = @prompt.mask('Please enter a password:', required: true)
+         @user2 = User.find_by(username: u_input, password: pass)
+         system("clear")
+         sleep(1)
+         if @user2 == nil
+           puts "Incorrect password, please sign in again!".center(175)
+           sleep(1)
+           welcome
+         else
+           puts "Welcome back #{e_user.username}!"
+         end
+    end
+  end
+
   def players
     amount = @prompt.select("") do |menu|
       menu.choice 'One Player'.center(175), 1
@@ -146,6 +170,7 @@ class CLI
       $PLAYERS = 2
       system('clear')
       sleep(1)
+      login_acc2
       puts 'Playing with two players'.center(175)
       sleep(1)
       system('clear')
