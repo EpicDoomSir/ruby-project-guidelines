@@ -106,7 +106,7 @@ class CLI
 
       $MUSIC.play
 
-      game.run(🚀, 🎇, 🌑)
+      game.run(🚀, 🎇, 🌑, @user)
     #   menu
     when 2
       difficulty  # user able to change difficulty of game

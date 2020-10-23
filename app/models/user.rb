@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
     has_many :ships
     has_many :games, through: :ships
+    has_many :highscores
+    has_many :games, through: :highscores
 
     def leaderboard
         puts "LEADERBOARD".center(112)

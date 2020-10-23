@@ -3,6 +3,8 @@ class Game < ActiveRecord::Base
     has_many :asteroids
     has_many :ships
     has_many :users, through: :ships
+    has_many :highscores
+    has_many :users, through: :highscores
 
     # attr_accessor :players, :start_timer, :started, :finish_flag
     # attr_reader :starting_sound, :music, :game_over_sound
@@ -27,7 +29,7 @@ class Game < ActiveRecord::Base
         Text.new("#{(self.start_timer / $FPS) + 1}", color: 'white', x: (Window.width / 2) - 30, y: Window.height / 3, z: 1, size: 100)
     end
 
-    def run(🚀, 🎇, 🌑)
+    def run(🚀, 🎇, 🌑, user)
         Window.set title: 'Asteroids'
         Window.set background: 'navy'
         Window.set fps_cap: $FPS
@@ -86,6 +88,12 @@ class Game < ActiveRecord::Base
                         $MUSIC.play
         
                         🚀.each do |x|
+                            x.update_attribute(:scores, x.scores)
+
+                            if x.scores != 0
+                                Highscore.create(user_id: user.id, game_id: self.id, score: x.scores)
+                            end
+
                             x.hp = 5
                             x.scores = 0
                             x.start_time = Time.now

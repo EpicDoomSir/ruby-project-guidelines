@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_225954) do
+ActiveRecord::Schema.define(version: 2020_10_23_141338) do
 
   create_table "asteroids", force: :cascade do |t|
     t.integer "hp"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(version: 2020_10_22_225954) do
     t.integer "start_timer"
     t.boolean "started"
     t.integer "finish_flag"
+  end
+
+  create_table "highscores", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "game_id"
+    t.float "score"
   end
 
   create_table "ships", force: :cascade do |t|
