@@ -22,9 +22,9 @@ Our spin on the classic game Asteroids.
 2. `cd` into the forked folder and open it in your text editor
 3. Open up your terminal and run `ruby bin/run.rb`
 4. Control you spaceship with the left and right arrow keys
-If you would like to play with two players:
-5. Make sure to create both accounts before playing
-6. second ship is controlled with the 'A' and 'D' keys
+5. If you would like to play with two players:
+6. Make sure to create both accounts before playing
+7. second ship is controlled with the 'A' and 'D' keys
 
 ---
 # Authors:
