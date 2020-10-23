@@ -15,7 +15,7 @@ class Asteroid < ActiveRecord::Base
     # end
 
     def draw
-        Square.new(x: self.rock_x * $GRID_SIZE, y: self.rock_y * $GRID_SIZE, size: ($GRID_SIZE - 1) * 2, color: 'red')
+        self.rock = Square.new(x: self.rock_x * $GRID_SIZE, y: self.rock_y * $GRID_SIZE, size: ($GRID_SIZE - 1) * 2, color: 'red')
     end
 
     def move
@@ -34,7 +34,7 @@ class Asteroid < ActiveRecord::Base
 
     def asteroid_hit_ship(ship) # returns true if the asteroid and ship occupy the same space
         if !self.collided # will only return true the first time the asteroid hits the ship
-            if self.rock_x == ship.x && self.rock_y == ship.y
+            if self.rock.contains?(ship.x, ship.y)
                 self.collided = true
                 return true
             end

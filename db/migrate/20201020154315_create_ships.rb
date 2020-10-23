@@ -4,7 +4,7 @@ class CreateShips < ActiveRecord::Migration[6.0]
       t.integer :user_id
       t.integer :game_id
       t.integer :hp
-      t.integer :scores
+      t.float :scores
       t.integer :position_x
       t.integer :position_y
       t.string :direction

@@ -3,7 +3,7 @@ class CreateAsteroids < ActiveRecord::Migration[6.0]
     create_table :asteroids do |t|
       t.integer :hp
       t.integer :size
-      t.integer :rock
+      t.column :rock, 'blob'
       t.integer :rock_x
       t.integer :rock_y
       t.boolean :reached_end

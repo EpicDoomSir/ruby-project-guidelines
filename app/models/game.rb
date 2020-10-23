@@ -85,7 +85,7 @@ class Game < ActiveRecord::Base
                         $MUSIC.play
         
                         🚀.each do |x|
-                            x.healthpoints = 5
+                            x.hp = 5
                             x.scores = 0
                             x.start_time = Time.now
                         end
@@ -113,7 +113,7 @@ class Game < ActiveRecord::Base
             end # end of unless loop
             
             🚀.each{|x| !x.dead? ? x.draw : nil }
-            Ship.all.each{|x| x.draw_texts}
+            🚀.each{|x| x.draw_texts}
             🌑.each{|x| x.draw}
             
             

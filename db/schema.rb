@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_225954) do
   create_table "asteroids", force: :cascade do |t|
     t.integer "hp"
     t.integer "size"
-    t.integer "rock"
+    t.binary "rock"
     t.integer "rock_x"
     t.integer "rock_y"
     t.boolean "reached_end"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_225954) do
     t.integer "user_id"
     t.integer "game_id"
     t.integer "hp"
-    t.integer "scores"
+    t.float "scores"
     t.integer "position_x"
     t.integer "position_y"
     t.string "direction"
