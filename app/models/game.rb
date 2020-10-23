@@ -28,6 +28,7 @@ class Game < ActiveRecord::Base
     end
 
     def run(🚀, 🎇, 🌑)
+        Window.set title: 'Asteroids'
         Window.set background: 'navy'
         Window.set fps_cap: $FPS
         Window.update do # actual logic of the game, runs every frame (speed controlled by fps_cap)
@@ -104,8 +105,7 @@ class Game < ActiveRecord::Base
                 
                         🌑 = []
                         🌑 << Asteroid.create(rock_x: rand($GRID_WIDTH), rock_y: rand(3), reached_end: false, collided: false)
-                    elsif event.key == 'q'
-                        Window.close
+
                     end
 
         
