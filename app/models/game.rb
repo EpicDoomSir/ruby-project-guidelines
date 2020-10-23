@@ -4,19 +4,19 @@ class Game < ActiveRecord::Base
     has_many :ships
     has_many :users, through: :ships
 
-    attr_accessor :players, :start_timer, :started, :finish_flag
-    attr_reader :starting_sound, :music, :game_over_sound
+    # attr_accessor :players, :start_timer, :started, :finish_flag
+    # attr_reader :starting_sound, :music, :game_over_sound
 
-    def initialize(players=1)
-        @players = players
-        @start_timer = $FPS * 3
-        @started = false
-        @finish_flag = 0
-        @music = Music.new('./app/game_sounds/abackground_and_engine.wav')
-        @starting_sound = Sound.new('./app/game_sounds/321_countdown.mp3')
-        @game_over_sound = Sound.new('./app/game_sounds/gameover.mp3')
-        @music.volume = 50
-    end
+    # def initialize(players=1)
+    #     @players = players
+    #     @start_timer = $FPS * 3
+    #     @started = false
+    #     @finish_flag = 0
+    #     # @music = Music.new('./app/game_sounds/abackground_and_engine.wav')
+    #     # @starting_sound = Sound.new('./app/game_sounds/321_countdown.mp3')
+    #     # @game_over_sound = Sound.new('./app/game_sounds/gameover.mp3')
+    #     # @music.volume = 50
+    # end
 
     def game_over_text
         Text.new("Game Over", color: 'orange', x: Window.width / 6, y: Window.height / 3, z: 1, size: 80) # need to find a way to make it centered and scaled with window size
@@ -24,7 +24,7 @@ class Game < ActiveRecord::Base
     end
 
     def starting_text
-        Text.new("#{(@start_timer / $FPS) + 1}", color: 'white', x: (Window.width / 2) - 30, y: Window.height / 3, z: 1, size: 100)
+        Text.new("#{(self.start_timer / $FPS) + 1}", color: 'white', x: (Window.width / 2) - 30, y: Window.height / 3, z: 1, size: 100)
     end
 
     def run(🚀, 🎇, 🌑)
@@ -47,16 +47,22 @@ class Game < ActiveRecord::Base
                     🌑.each{|x| x.move}
         
                     if 🌑.all?{|x| x.reached_end?} 
-                        🌑 << Asteroid.new
+                        🌑 << Asteroid.create(rock_x: rand($GRID_WIDTH), rock_y: rand(3), reached_end: false, collided: false)
                     end
             
-                    🚀.each{|x| !x.dead? ? (x.score = (Time.now - x.start_time)) : nil }
+                    🚀.each do |x| 
+                        if !x.dead? 
+                            (x.scores = (Time.now - x.start_time)) 
+                        else 
+                            nil
+                        end
+                    end
         
                 else # code for showing the timer
                     self.starting_text
 
                     if self.start_timer % $FPS == 0
-                        self.starting_sound.play
+                        $STARTING_SOUND.play
                     end
 
                     self.start_timer -= 1
@@ -64,11 +70,11 @@ class Game < ActiveRecord::Base
         
             else
                 if self.finish_flag == 0
-                    self.game_over_sound.play
+                    $GAME_OVER_SOUND.play
                     self.finish_flag +=1
                 end
                 self.game_over_text
-                self.music.fadeout(1500)
+                $MUSIC.fadeout(1500)
                 
                 Window.on :key_down do |event| # restart logic, resets all the pieces
                     if event.key == 'r'
@@ -77,28 +83,29 @@ class Game < ActiveRecord::Base
                         
                         self.finish_flag = 0
                         
-                        self.music.play
+                        $MUSIC.play
         
                         🚀.each do |x|
-                            x.healthpoints = 5
-                            x.score = 0
+                            x.hp = 5
+                            x.scores = 0
                             x.start_time = Time.now
                         end
                 
                         if self.players == 2
-                            🚀[0].position = [22, 20]
-                            🚀[1].position = [11, 20]
+                            🚀[0].position_x = 22
+                            🚀[0].position_y = 20
+                            🚀[1].position_x = 11
+                            🚀[1].position_y = 20
                         else
-                            🚀[0].position = [16, 20]
+                            🚀[0].position_x = 16
+                            🚀[0].position_y = 20
                         end
                 
                         🎇 = []
                 
                         🌑 = []
-                        🌑 << Asteroid.new
-                    # in theory this would close the game window, but we ran into issues using the built in close method
-                    # elsif event.key == 'q'
-                    #     Window.close
+                        🌑 << Asteroid.create(rock_x: rand($GRID_WIDTH), rock_y: rand(3), reached_end: false, collided: false)
+
                     end
 
         
@@ -106,16 +113,17 @@ class Game < ActiveRecord::Base
             end # end of unless loop
             
             🚀.each{|x| !x.dead? ? x.draw : nil }
-            Ship.all.each{|x| x.draw_texts}
+            🚀.each{|x| x.draw_texts}
             🌑.each{|x| x.draw}
-        
+            
+            
             
             # binding.pry
             🌑.each do |rock|
                 🚀.each do |ship|
                     if !ship.dead?
                         if rock.asteroid_hit_ship(ship) # tracks the collision and lowers hp
-                            ship.crash.play
+                            $CRASH.play
                             ship.record_hit
                             if ship.dead?
                                 🎇 << ship

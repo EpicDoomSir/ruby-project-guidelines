@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_194515) do
+ActiveRecord::Schema.define(version: 2020_10_22_225954) do
 
   create_table "asteroids", force: :cascade do |t|
     t.integer "hp"
     t.integer "size"
+    t.binary "rock"
+    t.integer "rock_x"
+    t.integer "rock_y"
+    t.boolean "reached_end"
+    t.boolean "collided"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -23,13 +28,22 @@ ActiveRecord::Schema.define(version: 2020_10_22_194515) do
     t.string "difficulty"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "players"
+    t.integer "start_timer"
+    t.boolean "started"
+    t.integer "finish_flag"
   end
 
   create_table "ships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "game_id"
     t.integer "hp"
-    t.integer "scores"
+    t.float "scores"
+    t.integer "position_x"
+    t.integer "position_y"
+    t.string "direction"
+    t.integer "start_time"
+    t.integer "player_option"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
