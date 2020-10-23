@@ -112,7 +112,9 @@ class Game < ActiveRecord::Base
                         🎇 = []
                 
                         🌑 = []
-                        🌑 << Asteroid.create(rock_x: rand($GRID_WIDTH), rock_y: rand(3), reached_end: false, collided: false)
+                        if 🌑.count == 0
+                            🌑 << Asteroid.create(rock_x: rand($GRID_WIDTH), rock_y: rand(3), reached_end: false, collided: false)
+                        end
 
                     end
 
