@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_225954) do
   create_table "asteroids", force: :cascade do |t|
     t.integer "hp"
     t.integer "size"
+    t.integer "rock"
     t.integer "rock_x"
     t.integer "rock_y"
     t.boolean "reached_end"
@@ -38,12 +39,13 @@ ActiveRecord::Schema.define(version: 2020_10_22_225954) do
     t.integer "game_id"
     t.integer "hp"
     t.integer "scores"
-    t.integer "position"
+    t.integer "position_x"
+    t.integer "position_y"
     t.string "direction"
     t.integer "start_time"
+    t.integer "player_option"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["position"], name: "index_ships_on_position"
   end
 
   create_table "users", force: :cascade do |t|

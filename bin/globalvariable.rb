@@ -14,6 +14,13 @@ $FPS = 15 # controls the speed of the game, difficulty will raise it. easy: 15, 
 
 # width = 640 / 20 = 32
 # height = 480 / 20 = 24
+$PLAYERS = 1
+$DIFFICULTY = "Easy"
+$PLAYER_OPTIONS = [
+    {x: 430, hp_y: 10, score_y: 40, color: 'green'},
+    {x: 10, hp_y: 10, score_y: 40, color: 'purple'}
+]
+
 $GAME_OVER_SOUND = Sound.new('./app/game_sounds/gameover.mp3')
 $STARTING_SOUND = Sound.new('./app/game_sounds/321_countdown.mp3')
 $MUSIC = Music.new('./app/game_sounds/abackground_and_engine.wav')

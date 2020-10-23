@@ -5,13 +5,13 @@ class CreateShips < ActiveRecord::Migration[6.0]
       t.integer :game_id
       t.integer :hp
       t.integer :scores
-      t.integer :position, array: true
+      t.integer :position_x
+      t.integer :position_y
       t.string :direction
       t.integer :start_time
-      
+      t.integer :player_option
       t.timestamps
     end
-    add_index :ships, :position, using: 'gin'
   end
 end
 
