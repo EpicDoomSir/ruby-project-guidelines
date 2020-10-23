@@ -78,6 +78,15 @@ class Game < ActiveRecord::Base
                 self.game_over_text
                 $MUSIC.fadeout(1500)
                 
+                
+                🚀.each do |x|
+                    x.update_attribute(:scores, x.scores)
+                    if x.scores != 0 && self.finish_flag == 1
+                        Highscore.create(user_id: user.id, game_id: self.id, score: x.scores)
+                    end
+                end
+                self.finish_flag += 1
+                
                 Window.on :key_down do |event| # restart logic, resets all the pieces
                     if event.key == 'r'
                         self.started = false
@@ -88,12 +97,6 @@ class Game < ActiveRecord::Base
                         $MUSIC.play
         
                         🚀.each do |x|
-                            x.update_attribute(:scores, x.scores)
-
-                            if x.scores != 0
-                                Highscore.create(user_id: user.id, game_id: self.id, score: x.scores)
-                            end
-
                             x.hp = 5
                             x.scores = 0
                             x.start_time = Time.now
