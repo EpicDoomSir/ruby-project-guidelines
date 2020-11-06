@@ -2,7 +2,7 @@
 
 1. Fork and clone this repository.
 2. `cd` into the cloned folder and open it in your text editor
-3. Open up your terminal and run 'bundle install'
+3. Open up your terminal and run `bundle install`
 4. Run `ruby bin/run.rb`
 5. Control you spaceship with the left and right arrow keys
 6. If you would like to play with two players:
